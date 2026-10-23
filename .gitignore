@@ -1,0 +1,19 @@
+# Data, literature, and private notes (local only)
+/data/
+/literature/
+nowlin-style-profile.md
+beliefs-congress-speeches.md
+
+# Generated at render time by scripts/export-cited-refs.R
+references.bib
+american-political-science-association.csl
+
+# Quarto / R / OS
+/.quarto/
+*_files/
+.Rhistory
+.RData
+.Rproj.user/
+.DS_Store
+
+**/*.quarto_ipynb

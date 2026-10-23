@@ -1,0 +1,17 @@
+{
+  "hash": "51d4ac7f614384c3e2ca216195e12625",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Belief Systems and the Climate Change Discourse in the US Congress\"\nbibliography: references.bib\ncsl: american-political-science-association.csl\nfig-cap-location: top\nfontfamily: ebgaramond\nlink-bibliography: false\nformat:\n  html:\n    author:\n      - name: Matthew C. Nowlin\n        email: matthew.nowlin@uta.edu\n        corresponding: true\n        affiliations:\n          - name: University of Texas at Arlington\n            department: Department of Political Science\n  pdf:\n    author:\n      - name: \"Matthew C. Nowlin^[Associate Professor, Department of Political Science, University of Texas at Arlington. Email: matthew.nowlin@uta.edu]\"\n    include-in-header:\n      text: |\n        \\usepackage{setspace}\n        \\usepackage{dcolumn}\n        \\usepackage{float}\n        \\usepackage{amsmath}\n        \\usepackage{ulem}\n        \\addtokomafont{disposition}{\\rmfamily}\n        \\normalem\n  docx:\n    author:\n      - name: \"Matthew C. Nowlin^[Associate Professor, Department of Political Science, University of Texas at Arlington. Email: matthew.nowlin@uta.edu]\"\n    reference-doc: custom-reference-doc.docx\n---\n\n\n\n\\newpage\n\n# References",
+    "supporting": [
+      "beliefs-congress-speeches_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": null,
+    "postProcess": false
+  }
+}
