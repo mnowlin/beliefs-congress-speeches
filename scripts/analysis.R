@@ -1,4 +1,4 @@
-# Analysis for "Belief Systems and the Climate Change Discourse in the US Congress"
+# Analysis for "Belief Systems and Climate Change Discourse in the US Congress"
 #
 # Sourced by beliefs-congress-speeches.qmd (setup chunk). Builds the objects
 # used by the manuscript's tables, figures, and inline R. Run from the project
@@ -29,6 +29,45 @@ ira <- read_corpus("ira-congressional-record",
 # The corpora have different keyword-hit columns; keep the shared ones
 shared   <- intersect(names(ct), names(ira))
 speeches <- rbind(ct[, shared], ira[, shared])
+
+# --- Periods ---------------------------------------------------------------
+# era: every speech, grouped by the Congresses around each debate.
+#   Cap-and-trade = 106th-112th (2000-2012); IRA = 115th-118th (2018-2024,
+#   incl. the Green New Deal and Build Back Better); OBBB = 119th (2025-).
+# window: debate windows, from the start of each bill's legislative vehicle
+#   to its final disposition (NA outside the windows).
+#   Cap-and-trade: Waxman-Markey discussion draft released -> Senate
+#     leadership drops the climate bill.
+#   IRA: Senate adopts the FY2022 budget resolution (S.Con.Res. 14) -> signed.
+#   OBBB: House adopts the FY2025 budget resolution (H.Con.Res. 14) -> signed.
+# window_congress: the Congress in which each debate took place (robustness
+#   check on the window dates).
+# climate_rule: kept by the climate-term screen rules (A: dense, B: titled),
+#   which are identical in both corpora. FALSE = kept only by rule C
+#   (bill_energy): names the period's climate bill and is energy-dense, with
+#   the same energy vocabulary in both corpora.
+windows <- data.frame(
+  window   = c("Cap-and-trade", "IRA", "OBBB"),
+  start    = as.Date(c("2009-03-31", "2021-08-11", "2025-02-25")),
+  end      = as.Date(c("2010-07-22", "2022-08-16", "2025-07-04")),
+  congress = c(111, 117, 119)
+)
+
+speeches$date <- as.Date(speeches$date)
+speeches$era <- factor(
+  cut(speeches$congress, breaks = c(0, 112, 118, Inf),
+      labels = windows$window),
+  levels = windows$window)
+speeches$window <- factor(NA, levels = windows$window)
+for (i in seq_len(nrow(windows))) {
+  in_w <- speeches$date >= windows$start[i] & speeches$date <= windows$end[i]
+  speeches$window[in_w] <- windows$window[i]
+}
+speeches$in_window <- !is.na(speeches$window)
+speeches$window_congress <- factor(
+  windows$window[match(speeches$congress, windows$congress)],
+  levels = windows$window)
+speeches$climate_rule <- speeches$keep_rule %in% c("dense", "titled")
 
 # --- Descriptives ----------------------------------------------------------
 n_speeches <- nrow(speeches)

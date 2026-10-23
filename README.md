@@ -1,4 +1,4 @@
-# Belief Systems and the Climate Change Discourse in the US Congress
+# Belief Systems and Climate Change Discourse in the US Congress
 
 Manuscript and reproducible analysis examining whether belief systems can be
 measured from floor speeches in the US Congress. The paper uses speeches from
@@ -22,11 +22,25 @@ _output/                             Rendered HTML/PDF/DOCX (tracked in git)
 custom-reference-doc.docx            Word reference template used for the DOCX output
 LOG.md                               Running session log (newest entry first)
 renv.lock, renv/, .Rprofile          renv project library (R package versions)
+codebook/
+  codebook-v0.5.md                   Coding scheme for beliefs (concepts, intensity, hedging)
+                                       and information sources (RQ2)
+  prompt_v0.5.txt                    Final LLM coding prompt, generated from codebook sections 3-6
+                                       (the re-pilot's draft prompt is in output/pilot/v0.5/)
 scripts/
   analysis.R                         Sourced by the qmd: loads the speech corpora and
                                        DW-NOMINATE scores and builds the objects used
                                        in tables, figures, and inline R
   export-cited-refs.R                Pre-render step: trims the master .bib to cited keys
+  pilot_sample.R                     Draws the 150-speech stratified pilot sample
+                                       (seed 20260928) -> output/pilot/pilot_sample.csv
+  pilot_summarize_v05.R              Validates and summarizes the codebook v0.5 re-pilot
+  human_coding_setup.R               Builds human-coding/ (seed 20261023)
+human-coding/                        Packet for the human reliability study: INSTRUCTIONS,
+                                       codebook v0.5 (md/html/docx), 54 speeches + 4 practice,
+                                       one coding workbook per coder (A, B), manifest.csv
+output/pilot/v0.5/                   Codebook v0.5 re-pilot: batch manifests, raw JSONL
+                                       codes, CSVs, summary log, pilot-report-v05.md
 data/                                Speech corpora and DW-NOMINATE (NOT in git -- see below)
 literature/                          Background literature (NOT in git -- local only)
 ```
@@ -50,13 +64,19 @@ Each folder has its own `README.md` documenting how it was built.
 
 - `data/cap-and-trade-congressional-record/` — Congressional Record floor
   speeches, debate turns, and Extensions of Remarks on climate change or
-  cap-and-trade, 2000–2012 (2,133 kept speeches; `index.csv` has one row per
+  cap-and-trade, 2000–2012 (2,331 kept speeches; `index.csv` has one row per
   speech, `speeches/{year}/` holds the text). Built from GovInfo's CREC
   collection.
 - `data/ira-congressional-record/` — companion corpus, 2018–2026, covering
   climate change and the energy/climate side of Build Back Better, the IRA,
-  the OBBB, and the Green New Deal (2,079 kept speeches). Same search terms
-  and screening rules as the cap-and-trade corpus, plus bill-specific rules.
+  the OBBB, and the Green New Deal (2,079 kept speeches).
+- **Screening rules are the same in both corpora:** A (dense climate terms),
+  B (titled), and C (names the period's climate bill and is energy-dense, with
+  an identical energy vocabulary). Rule C was added to the cap-and-trade
+  corpus on 2026-10-23 (cap-and-trade-era bills: Waxman-Markey, Kerry-Boxer,
+  Kerry-Lieberman, Lieberman-Warner, McCain-Lieberman). `keep_rule` records
+  which rule kept each speech; `climate_rule` in `scripts/analysis.R` flags
+  A/B.
 - `data/voteview-nominate/` — DW-NOMINATE and Nokken-Poole scores (Voteview)
   matched to every speech (`{captrade,ira}_speech_nominate.csv`, joined to
   `index.csv` on `speech_id`). `add_nominate.R` expects the two corpora to be

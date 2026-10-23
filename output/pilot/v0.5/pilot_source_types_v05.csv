@@ -1,0 +1,16 @@
+"source_type","n_sources","pct_speeches_all","pct_speeches_CT","pct_speeches_IRA","pct_speeches_D","pct_speeches_R","pct_specific","pct_dispute","meets_5pct"
+"science",146,35.3,44,26.7,47.4,22.2,79,8,TRUE
+"govt_analysis",40,22,18.7,25.3,20.5,23.6,100,2,TRUE
+"executive",29,15.3,17.3,13.3,14.1,16.7,97,21,TRUE
+"military_security",7,4,2.7,5.3,3.8,4.2,71,0,TRUE
+"think_tank",6,4,5.3,2.7,3.8,4.2,83,0,TRUE
+"advocacy",23,10,12,8,15.4,4.2,65,9,TRUE
+"business",45,22,26.7,17.3,23.1,20.8,76,13,TRUE
+"labor",2,1.3,0,2.7,2.6,0,50,0,FALSE
+"state_local",26,11.3,9.3,13.3,12.8,9.7,85,4,TRUE
+"international",20,8.7,14.7,2.7,9,8.3,80,20,TRUE
+"media",33,11.3,14.7,8,6.4,16.7,91,21,TRUE
+"constituent",24,12.7,9.3,16,7.7,18.1,12,4,TRUE
+"personal",27,18,20,16,17.9,18.1,78,4,TRUE
+"religious",3,2,2.7,1.3,1.3,2.8,100,0,FALSE
+"other",48,24.7,22.7,26.7,25.6,23.6,44,6,TRUE

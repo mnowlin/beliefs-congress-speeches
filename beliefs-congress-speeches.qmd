@@ -1,5 +1,5 @@
 ---
-title: "Belief Systems and the Climate Change Discourse in the US Congress"
+title: "Belief Systems and Climate Change Discourse in the US Congress"
 bibliography: references.bib
 csl: american-political-science-association.csl
 fig-cap-location: top

@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Codebook v0.5</title>
+  <style>
+
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+white-space: pre-wrap;
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Codebook v0.5</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#codebook-beliefs-and-information-sources-in-the-congressional-record" id="toc-codebook-beliefs-and-information-sources-in-the-congressional-record">Codebook:
+Beliefs and Information Sources in the Congressional Record</a>
+<ul>
+<li><a href="#purpose" id="toc-purpose">1. Purpose</a></li>
+<li><a href="#corpora-and-unit-of-analysis" id="toc-corpora-and-unit-of-analysis">2. Corpora and unit of
+analysis</a></li>
+<li><a href="#what-to-code-in-general" id="toc-what-to-code-in-general">3. What to code, in general</a>
+<ul>
+<li><a href="#a.-inserted-and-endorsed-material-new-in-v0.4" id="toc-a.-inserted-and-endorsed-material-new-in-v0.4">3a. Inserted and
+endorsed material (new in v0.4)</a></li>
+</ul></li>
+<li><a href="#concepts" id="toc-concepts">4. Concepts</a>
+<ul>
+<li><a href="#deep-core-dc-abstract-values-that-span-policy-domains" id="toc-deep-core-dc-abstract-values-that-span-policy-domains">Deep core
+(DC): abstract values that span policy domains</a></li>
+<li><a href="#policy-core-pc-beliefs-about-the-climateenergy-problem" id="toc-policy-core-pc-beliefs-about-the-climateenergy-problem">Policy
+core (PC): beliefs about the climate/energy problem</a></li>
+<li><a href="#policy-core-candidates-new-in-v0.4" id="toc-policy-core-candidates-new-in-v0.4">Policy core candidates (‡,
+new in v0.4)</a></li>
+<li><a href="#secondary-sc-policy-instruments" id="toc-secondary-sc-policy-instruments">Secondary (SC): policy
+instruments</a></li>
+<li><a href="#boundary-anchors-dc1-dc4-pc4-sc4-v0.5-final" id="toc-boundary-anchors-dc1-dc4-pc4-sc4-v0.5-final">Boundary anchors:
+DC1, DC4, PC4, SC4 (v0.5 final)</a></li>
+</ul></li>
+<li><a href="#a.-intensity-and-hedging" id="toc-a.-intensity-and-hedging">4a. Intensity and hedging</a></li>
+<li><a href="#b.-information-sources-new-in-v0.5" id="toc-b.-information-sources-new-in-v0.5">4b. Information sources (new
+in v0.5)</a>
+<ul>
+<li><a href="#what-counts" id="toc-what-counts">What counts</a></li>
+<li><a href="#fields-one-row-per-source-per-speech" id="toc-fields-one-row-per-source-per-speech">Fields (one row per source
+per speech)</a></li>
+<li><a href="#rules" id="toc-rules">Rules</a></li>
+</ul></li>
+<li><a href="#borderline-cases" id="toc-borderline-cases">5. Borderline
+cases</a></li>
+<li><a href="#speech-level-variables-not-network-nodes" id="toc-speech-level-variables-not-network-nodes">6. Speech-level
+variables (not network nodes)</a></li>
+<li><a href="#output-format" id="toc-output-format">7. Output
+format</a></li>
+<li><a href="#source-re-pilot-and-reliability-study-next-phase" id="toc-source-re-pilot-and-reliability-study-next-phase">8. Source
+re-pilot and reliability study (next phase)</a></li>
+<li><a href="#llm-prompt-skeleton-v0.5" id="toc-llm-prompt-skeleton-v0.5">9. LLM prompt skeleton (v0.5)</a></li>
+<li><a href="#open-issues" id="toc-open-issues">10. Open issues</a></li>
+<li><a href="#related-documents-policy-learning-in-congress-project" id="toc-related-documents-policy-learning-in-congress-project">Related
+documents (Policy Learning in Congress project)</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="codebook-beliefs-and-information-sources-in-the-congressional-record">Codebook:
+Beliefs and Information Sources in the Congressional Record</h1>
+<p><strong>Status:</strong> v0.5 final, for human reliability coding.
+v0.4 was revised after the 150-speech LLM pilot (Pilot Report v0.4, in
+the Policy Learning in Congress project). v0.5 adds an
+information-source module (§4b, for RQ2) and revises speaker certainty
+(§4a). The source module was re-piloted on the same 150 speeches
+(<code>output/pilot/v0.5/pilot-report-v05.md</code>) and the
+<code>source_type</code> list revised from the results; human
+reliability testing has not been done for any part of the codebook.
+Anchor examples marked with a speaker name are <strong>verbatim quotes
+from the pilot</strong>; unmarked examples are constructed
+paraphrases.</p>
+<p>v0.4 and earlier live in
+<code>00-policy-learning-congress/output/pilot-codebook-congressional-belief-networks.md</code>
+and are unchanged. The concept list (§4) is identical to v0.4.
+Concept-boundary changes proposed in Pilot Report v0.4 §6.2–6.3
+(PC6/leakage, PC4 wording, PC4/PC9, PC7 “all of the above,” SC13) are
+deferred until the reliability results are in.</p>
+<p><strong>Version history</strong> - <strong>v0.5 final
+(2026-10-23):</strong> boundary anchors for DC1, DC4, PC4, and SC4, the
+concepts with the lowest re-code agreement (§4); attributed anchors
+throughout the codebook replaced where they came from speeches in the
+human reliability set; DC4’s disagree anchor replaced (a “pays for
+itself” claim is no longer DC4); the “free-market approach” borderline
+rule narrowed (§5). <code>source_type</code> revised after the re-pilot
+(Pilot Report v0.5 §6): <code>other</code> split into
+<code>courts</code>, <code>congress</code>, and
+<code>public_opinion</code>; new <code>expert_generic</code> for
+unattributed expert claims and estimates; <code>labor</code> merged into
+<code>advocacy</code> and <code>religious</code> into <code>other</code>
+(both under 5% of speeches); note on dissenting (“contrarian”) science.
+The re-pilot used the draft prompt, archived as
+<code>output/pilot/v0.5/prompt_v0.5.txt</code> (md5
+<code>88bee1e99e2366dc4bbd83da14d7c80a</code>). - <strong>v0.5 draft
+(2026-10-23):</strong> new §4b information sources: one row per source ×
+speech with type, specificity, evidence form, use, and linked concepts;
+sources are recorded even in inserted material the speaker only
+introduces (§3a). <code>speaker_certainty</code> (3 levels) replaced by
+binary <code>hedged</code>; emphasis is measured by a hedge/booster
+dictionary instead of by coder judgment; “believe in X” is not a hedge
+(§4a). Corpus paths updated to this project’s <code>data/</code>. -
+<strong>v0.4 (2026-09-28):</strong> rules for inserted and endorsed
+material (§3a); regressivity rule for DC2; SC2 broadened to all carbon
+pricing; PC7 rewritten as a two-sided proposition about <em>how</em> to
+achieve energy security; emphatic certainty tightened;
+<code>bill_focus</code> list expanded; <code>procedural_objection</code>
+added; 5 new candidate concepts (‡); agree-only nodes flagged; verbatim
+anchor quotes added. - <strong>v0.3:</strong> node set no longer tied to
+the 17 public-survey nodes; 6 elite-discourse candidates (†). -
+<strong>v0.2:</strong> statement-level <code>intensity</code> and
+<code>speaker_certainty</code> (§4a); see the belief-certainty memo
+(<code>output/measuring-beliefs-belief-certainty-congressional-record.md</code>,
+Policy Learning in Congress project).</p>
+<p><strong>Design rationale:</strong> see
+<code>output/congressional-record-belief-networks-feasibility.md</code>
+in the Policy Learning in Congress project.</p>
+<hr />
+<h2 id="purpose">1. Purpose</h2>
+<p>Code the <strong>climate/energy policy beliefs members of Congress
+express</strong> in floor speeches so that: 1. a <strong>speech-level
+belief network</strong> (Ising model + Bayesian network) can be
+estimated, mirroring Nowlin (2026, <em>SSQ</em>); and 2. the same codes
+can be imported into <strong>Discourse Network Analyzer /
+<code>rDNA</code></strong> to build concept × concept and actor
+congruence/conflict networks (Leifeld; Fisher &amp; Leifeld, 2019); and
+3. the <strong>information sources</strong> members cite can be
+identified, classified, and linked to the beliefs they are used to
+support (§4b; RQ2), so that belief and source salience can be compared
+across periods (RQ3).</p>
+<p>Concepts are organized by ACF tier (deep core / policy core /
+secondary) and chosen for how members of Congress actually argue about
+climate and energy. They are <strong>not</strong> constrained to match
+the 17 survey nodes in Nowlin (2026). Elite–public comparisons, where
+made, are qualitative.</p>
+<p><strong>Number of nodes.</strong> v0.4 lists 26 concepts retained
+from v0.3 plus 5 <strong>new candidates (‡)</strong>. The † concepts
+from v0.3 all met the pilot prevalence criterion and are retained
+pending reliability. A concept stays only if it meets the prevalence and
+reliability criteria in §8.</p>
+<p><strong>Agree-only nodes.</strong> In the pilot, 8 concepts had &lt;
+10% disagree statements: DC4, PC2, PC5, PC9, SC9, SC10, SC11, and old
+PC7. For these, the analysis matrix uses a single “agree” indicator;
+“disagree” codes are kept in the statement file but not modeled as
+separate nodes unless they reach 10% in the full data.</p>
+<h2 id="corpora-and-unit-of-analysis">2. Corpora and unit of
+analysis</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Item</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Corpora</td>
+<td><code>data/cap-and-trade-congressional-record/</code> (2000–2012);
+<code>data/ira-congressional-record/</code> (2018–2026)</td>
+</tr>
+<tr>
+<td>Document</td>
+<td>One speech file (<code>speeches/{year}/{speech_id}.txt</code>) = one
+Member’s turn. <strong>Inserted material is not always removed</strong>
+(see §3a).</td>
+</tr>
+<tr>
+<td>Actor</td>
+<td>The speaking Member (<code>bioGuideId</code> from
+<code>index.csv</code>). Party, state, chamber, and Congress come from
+metadata, <strong>not</strong> from coding.</td>
+</tr>
+<tr>
+<td>Statement</td>
+<td>A passage in which the speaker expresses a position on
+<strong>one</strong> concept.</td>
+</tr>
+<tr>
+<td>Source (new in v0.5)</td>
+<td>An external origin of information or authority that the speaker
+invokes (§4b).</td>
+</tr>
+<tr>
+<td>Coding granularity</td>
+<td>For each speech, code <strong>each concept × stance combination at
+most once</strong>, using the clearest passage. Code <strong>each
+distinct source at most once per speech</strong> (§4b).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-to-code-in-general">3. What to code, in general</h2>
+<ul>
+<li><strong>Code the speaker’s own position.</strong> Positions
+attributed to others are coded only as the speaker’s endorsement or
+rejection of them.
+<ul>
+<li>“Some of my colleagues claim climate change is a hoax. They are
+wrong.” → PC1 <strong>agree</strong>.</li>
+</ul></li>
+<li><strong>Explicit or unambiguous implied stances only.</strong>
+Rhetorical questions and sarcasm are coded when the intended stance is
+unmistakable in context; otherwise do not code. Ironic or mocking
+framing whose stance is unclear (e.g., “this idea of global warming” in
+an attack on something else) is <strong>not</strong> coded.</li>
+<li><strong>Do not infer from party</strong> or from what the speaker
+“would” believe. Silence on a concept means <strong>not coded</strong>,
+never disagreement.</li>
+<li><strong>Deep core concepts need explicit value language.</strong> A
+general appeal to principle (freedom, fairness, stewardship, fiscal
+restraint, separation of powers, federalism) must appear in the text.
+General statements of principle count even if not energy-specific (e.g.,
+“We must strengthen our economy, not grow our government” → DC1).</li>
+<li><strong>A bill is not an instrument.</strong> Opposition to a bill
+is coded to an instrument concept only when the stated reason concerns
+that instrument. Otherwise code only <code>bill_stance</code> (§6) plus
+whatever reasons are given.
+<ul>
+<li>“This bill’s cap-and-trade scheme is a national energy tax on every
+family.” → SC1 <strong>disagree</strong>, PC4
+<strong>agree</strong>.</li>
+<li>“This bill spends too much money.” (IRA) → DC4
+<strong>agree</strong>; no instrument code.</li>
+</ul></li>
+<li><strong>Timing and germaneness objections are not instrument
+stances.</strong> “Now is not the time to debate solar tax credits” (in
+an unrelated emergency bill) → code the instrument only if the speaker
+also objects on the merits; otherwise note in <code>memo</code>.</li>
+<li><strong>Conditional positions:</strong> code the stance and set
+<code>conditional = 1</code>.
+<ul>
+<li>“I could support a cap on emissions if China and India did the
+same.” → SC1 agree (conditional), PC6 agree.</li>
+</ul></li>
+<li><strong>Procedural speech</strong> (unanimous consent, scheduling,
+tributes with no policy content) →
+<code>no_codable_content = 1</code>.</li>
+</ul>
+<h3 id="a.-inserted-and-endorsed-material-new-in-v0.4">3a. Inserted and
+endorsed material (new in v0.4)</h3>
+<p>The pilot found letters, editorials, bill text, and Statements of
+Administration Policy inside speech files. Apply these rules:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Material</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Letters, articles, reports, or SAPs the speaker only
+<strong>introduces</strong> (“I include in the Record the following
+letters…”)</td>
+<td>Not coded. If the file contains nothing else,
+<code>no_codable_content = 1</code>.</td>
+</tr>
+<tr>
+<td>Inserted material the speaker <strong>summarizes or characterizes in
+their own words</strong> (“this editorial shows the bill will reduce
+temperatures by only 0.028 degrees”)</td>
+<td>Code the speaker’s own sentence only, with <code>confidence</code> ≤
+2.</td>
+</tr>
+<tr>
+<td>Material the speaker <strong>quotes within their remarks and
+explicitly endorses</strong> (“I could not agree more”)</td>
+<td>Code, using the speaker’s endorsing sentence as the
+<code>quote</code> where possible.</td>
+</tr>
+<tr>
+<td><strong>Bill or amendment text</strong> read by the Clerk, including
+an amendment the speaker offers</td>
+<td>Not coded as a stance. Code only the speaker’s own remarks about
+it.</td>
+</tr>
+<tr>
+<td>A <strong>letter the speaker co-signed</strong> and submits (e.g., a
+caucus letter)</td>
+<td>Code as the speaker’s own position; set <code>memo</code> to
+<code>co-signed letter</code>.</td>
+</tr>
+<tr>
+<td><strong>Another Member’s remarks</strong> in the same file
+(speaker-split error)</td>
+<td>Not coded; flag <code>DATA: speaker split</code> in
+<code>speech_memo</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Sources in inserted material (v0.5).</strong> The rules above
+govern <strong>stance</strong> codes only. Inserted material is itself
+an information source: a letter, report, article, or SAP the speaker
+introduces into the Record is coded as a <strong>source</strong> (§4b)
+with <code>inserted = 1</code>, even when it is not coded as a stance. A
+speech that only inserts material is therefore
+<code>no_codable_content = 1</code> for stances but can still have
+source rows. Sources cited <strong>inside</strong> the inserted material
+(e.g., a study an inserted editorial mentions) are not coded.</p>
+<h2 id="concepts">4. Concepts</h2>
+<p>Each concept is a <strong>proposition</strong>. Code <strong>agree
+(1)</strong> or <strong>disagree (0)</strong>. A speech may contain both
+stances on the same concept (ambivalence); code both.</p>
+<h3 id="deep-core-dc-abstract-values-that-span-policy-domains">Deep core
+(DC): abstract values that span policy domains</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>ID</th>
+<th>Proposition</th>
+<th>Agree looks like</th>
+<th>Disagree looks like</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DC1</strong></td>
+<td>Government should minimize intervention; markets and individuals,
+not federal mandates, should make energy choices.</td>
+<td>“We must strengthen our economy, not grow our government.”
+(Meuser)</td>
+<td>“voluntary programs unfortunately do not work.” (Lieberman)</td>
+</tr>
+<tr>
+<td><strong>DC2</strong></td>
+<td>Policy should protect disadvantaged, low-income, or frontline
+communities from unfair burdens and share benefits fairly.</td>
+<td>“Low- and middle-income households spend a greater share of their
+budget on energy costs than higher income households.” (Fudge); “It is a
+regressive tax that imposes a greater burden … on the poor”
+(Inhofe)</td>
+<td>Explicit rejection of equity targeting: “$3.4 billion for tree
+equity. Tree equity, that surely is going to bring down gas prices” (J.
+Smith)</td>
+</tr>
+<tr>
+<td><strong>DC3</strong></td>
+<td>We have a moral obligation to protect the environment/planet for
+future generations.</td>
+<td>“we have a responsibility here, to future generations and to all of
+us, to try to get this right.” (Kerry)</td>
+<td>“if only Americans grow poorer, the planet will somehow grow purer.”
+(Lee, mocking the trade-off)</td>
+</tr>
+<tr>
+<td><strong>DC4</strong></td>
+<td>Federal spending, taxes, and debt should be restrained.</td>
+<td>“higher taxes, higher spending, and higher debt.” (Ernst)</td>
+<td>“The austere and irresponsible cuts in this bill do not align with
+America’s values.” (Pingree)</td>
+</tr>
+<tr>
+<td><strong>DC5 †</strong></td>
+<td>Major energy/climate policy should be made by Congress, not by
+executive agencies or the courts.</td>
+<td>“the elected representatives of the people, Congress, should be the
+ones making the decision, not unelected bureaucrats” (Bunning)</td>
+<td>“EPA already has the authority to regulate carbon pollution, and the
+Supreme Court has said so. Congress should let the agency do its job.”
+(constructed; not observed outside the coding set)</td>
+</tr>
+<tr>
+<td><strong>DC6 †</strong></td>
+<td>States, not the federal government, should decide their own energy
+and climate policies.</td>
+<td>“The bill overrides State energy and environmental legal authorities
+… So much for States rights” (Lieberman)</td>
+<td>Overturning EPA’s findings is bad “because a dozen States, such as
+Vermont and California, could then go forward, each with their own rules
+and standards.” (Leahy)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Notes:</em> - “Debt on future generations” is
+<strong>DC4</strong>, not DC3. - <strong>DC2 regressivity rule
+(v0.4):</strong> DC2 codes the <em>value</em> (fairness to low-income or
+disadvantaged people), whichever side of the policy debate it is used
+on. “It hurts the poor most” used <strong>against</strong> a climate
+policy is DC2 <strong>agree</strong>, coded together with the relevant
+PC4 or instrument code. The network then shows DC2’s link to opposition
+through its co-occurrence with PC4, not through a separate node. Use
+normal <code>confidence</code> (not 1) when the fairness language is
+explicit. - DC5 is an institutional value specific to legislators
+(separation of powers); it is not the same as DC1 (size of government).
+- DC6 is cross-party in the pilot (55% D); keep it as a candidate bridge
+node. - Hierarchy and fatalism are not coded.</p>
+<h3 id="policy-core-pc-beliefs-about-the-climateenergy-problem">Policy
+core (PC): beliefs about the climate/energy problem</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>ID</th>
+<th>Proposition</th>
+<th>Agree</th>
+<th>Disagree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PC1</strong></td>
+<td>Climate change is happening and is substantially human-caused.</td>
+<td>“There is no doubt that human-induced emissions are warming the
+planet.” (Lieberman)</td>
+<td>“It isn’t global warming, it is global cooling.” (Inhofe)</td>
+</tr>
+<tr>
+<td><strong>PC2</strong></td>
+<td>Climate change poses serious risks or harms, now or in the
+future.</td>
+<td>“Climate change is a clear and present danger.” (Pingree)</td>
+<td>“there is a lot of hysteria out here. The hysteria out here is not
+well founded.” (Inhofe)</td>
+</tr>
+<tr>
+<td><strong>PC3</strong></td>
+<td>Climate science is reliable and there is a scientific
+consensus.</td>
+<td>“In fact, scientific consensus has clearly been established”
+(Matheson)</td>
+<td>“the so-called consensus on manmade global warming is not holding
+up.” (Inhofe)</td>
+</tr>
+<tr>
+<td><strong>PC4</strong></td>
+<td>Climate/clean-energy policy imposes unacceptable economic costs
+(energy prices, jobs, competitiveness).</td>
+<td>“This bill will cost you money. It will make your gasoline more
+expensive.” (Enzi)</td>
+<td>“these new emission requirements did not place an undue burden on
+companies or raise costs for consumers.” (Carper)</td>
+</tr>
+<tr>
+<td><strong>PC5</strong></td>
+<td>Clean energy / climate action creates economic opportunity (jobs,
+manufacturing, investment).</td>
+<td>“A new energy direction for our country will create jobs and grow
+our economy.” (Durbin)</td>
+<td>“This cap-and-trade proposal will fail to do that when America needs
+them most. We will lose jobs.” (G. Davis)</td>
+</tr>
+<tr>
+<td><strong>PC6</strong></td>
+<td>US action is futile or unfair unless major emitters (China, India,
+developing countries) also act.</td>
+<td>“what the United States does unilaterally is not going to have any
+impact” (Sessions)</td>
+<td>“Many here in the US will try to use another country’s failure or
+inaction as an excuse for not doing anything. But it is just that, an
+excuse.” (McCain)</td>
+</tr>
+<tr>
+<td><strong>PC7</strong> (revised)</td>
+<td>Energy security is best achieved through clean energy and efficiency
+rather than expanded fossil production.</td>
+<td>“Real security means tackling the climate crisis head-on–building a
+clean energy future here at home” (Markey)</td>
+<td>“endanger our own energy security to meet these arbitrary net zero
+deadlines.” (Cornyn); a coal phase-out “will make us more dependent. It
+stops the use of coal in this country.” (Foxx)</td>
+</tr>
+<tr>
+<td><strong>PC8 †</strong></td>
+<td>Clean-energy policy strengthens US economic and strategic
+competitiveness against China.</td>
+<td>“gut the clean energy tax credits … it will be a total surrender to
+China on clean energy.” (Wyden)</td>
+<td>“Pouring government subsidies into green pet projects … would mean
+handing a massive windfall to Chinese producers” (McConnell)</td>
+</tr>
+<tr>
+<td><strong>PC9 †</strong></td>
+<td>The clean-energy transition threatens the reliability of the
+electric grid.</td>
+<td>“If the grid becomes too reliant on intermittent green energy
+sources, we will begin to see manufacturers shutter their operations.”
+(Latta)</td>
+<td>“Renewables and storage make the grid more resilient.” (not observed
+in pilot)</td>
+</tr>
+</tbody>
+</table>
+<p><em>Notes:</em> - <strong>PC7 rewrite (v0.4):</strong> In the pilot,
+old PC7 (“energy security should be a priority”) had 0% disagreement,
+but the two parties meant opposite things by it. PC7 is now a two-sided
+proposition about <strong>the path</strong> to security. A generic
+appeal to security or independence that names no path is <strong>not
+coded</strong>. Security through <strong>both</strong> paths (“all of
+the above”) → code agree and disagree (ambivalence) with
+<code>memo = all-of-the-above</code>. Pilot codes for old PC7 must be
+recoded before analysis. - PC6 (futility: others won’t act) and PC8
+(competition over industries and supply chains) are distinct China
+arguments; code both if both are made. - PC9 is agree-only and entirely
+Republican in the pilot; keep as a candidate but expect it to act as a
+partisan marker. - PC4 and PC9 co-occur mainly in Republican GND/IRA-era
+speeches; test distinctness in the reliability study.</p>
+<h3 id="policy-core-candidates-new-in-v0.4">Policy core candidates (‡,
+new in v0.4)</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>ID</th>
+<th>Proposition</th>
+<th>Agree</th>
+<th>Disagree</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PC10 ‡</strong></td>
+<td>Fossil-fuel interests are deliberately manufacturing doubt or
+blocking climate action.</td>
+<td>“This web of denial, paid for by the fossil fuel industry, has
+stymied Congress for a decade.” (Whitehouse)</td>
+<td>Explicit rejection of the claim (rare).</td>
+</tr>
+<tr>
+<td><strong>PC11 ‡</strong></td>
+<td>Natural gas is a climate solution (cleaner fuel that lowers
+emissions).</td>
+<td>“How about we embrace clean-burning American natural gas” (Roy,
+answering “what are we going to do?” about climate change)</td>
+<td>“natural gas production and use become part of the climate problem”
+without methane controls (Carper)</td>
+</tr>
+<tr>
+<td><strong>PC12 ‡</strong></td>
+<td>Climate policy costs fall unfairly on particular regions or
+States.</td>
+<td>“This bill is nothing more than the economic colonization of the
+heartland by the coastal States” (G. Davis); “I remain concerned that
+this energy bill will result in unfair regional wealth transfers.”
+(Matheson)</td>
+<td>Explicit claim that burdens are fairly shared (rare).</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note:</em> PC10 is a belief about the politics of the problem
+rather than the problem itself; it appeared in 5 Democratic speeches in
+the pilot. PC12 is distinct from DC2 (fairness to people) and DC6 (state
+authority).</p>
+<h3 id="secondary-sc-policy-instruments">Secondary (SC): policy
+instruments</h3>
+<p>Code a stance on the <strong>instrument class</strong>, whether or
+not the speech names a specific bill.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>ID</th>
+<th>Proposition: “The federal government should adopt/keep…”</th>
+<th>Includes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SC1</strong></td>
+<td>…a cap-and-trade / emissions-trading system.</td>
+<td>Waxman-Markey, Lieberman-Warner, Kerry-Boxer caps; “cap-and-tax”
+framing = <strong>disagree</strong>; tradable CAFE or GHG credits</td>
+</tr>
+<tr>
+<td><strong>SC2</strong> (broadened)</td>
+<td>…a carbon tax, carbon fee, or <strong>unspecified price on
+carbon</strong>.</td>
+<td>Carbon fee-and-dividend; border carbon adjustments; “put a price on
+carbon” when no cap is named</td>
+</tr>
+<tr>
+<td><strong>SC3</strong></td>
+<td>…EPA regulation of greenhouse gases.</td>
+<td>Endangerment finding, Clean Power Plan, power-plant/vehicle/methane
+GHG rules, Clean Air Act authority</td>
+</tr>
+<tr>
+<td><strong>SC4</strong></td>
+<td>…participation in international climate agreements.</td>
+<td>Kyoto, Copenhagen, Paris, Kigali; rejoining/withdrawing (withdraw =
+<strong>disagree</strong>)</td>
+</tr>
+<tr>
+<td><strong>SC5</strong></td>
+<td>…clean-energy tax credits and subsidies.</td>
+<td>PTC/ITC, IRA credits (45Y, 48E, 45X, 30D, 25D, 45Q, 45V, 45U), EV
+credits, DOE loans and grants for deployment; OBBB repeal =
+<strong>disagree</strong></td>
+</tr>
+<tr>
+<td><strong>SC6</strong></td>
+<td>…clean-energy mandates and performance standards.</td>
+<td>Renewable/clean electricity standards, CEPP, efficiency and building
+codes, CAFE, EV mandates, lifecycle fuel GHG standards</td>
+</tr>
+<tr>
+<td><strong>SC7</strong></td>
+<td>…expand domestic fossil-fuel production and infrastructure.</td>
+<td>Drilling, federal leasing, pipelines, LNG exports, coal,
+coal-to-liquids; “all of the above” = agree</td>
+</tr>
+<tr>
+<td><strong>SC8</strong></td>
+<td>…expand nuclear energy.</td>
+<td>New reactors, SMRs, licensing reform, waste storage for nuclear
+expansion</td>
+</tr>
+<tr>
+<td><strong>SC9</strong></td>
+<td>…invest in energy innovation/technology R&amp;D (incl. carbon
+capture) as a climate strategy.</td>
+<td>ARPA-E, DOE R&amp;D, CCS/DAC, “innovation not regulation”</td>
+</tr>
+<tr>
+<td><strong>SC10 †</strong></td>
+<td>…streamline permitting and environmental review for energy
+infrastructure.</td>
+<td>NEPA reform, transmission siting, “permitting reform”; note clean
+vs. fossil in <code>memo</code></td>
+</tr>
+<tr>
+<td><strong>SC11 †</strong></td>
+<td>…fund climate adaptation and disaster resilience.</td>
+<td>Resilience grants, flood/wildfire mitigation, adaptation funding
+linked to climate</td>
+</tr>
+<tr>
+<td><strong>SC12 ‡</strong></td>
+<td>…promote natural and land-based carbon sinks.</td>
+<td>Forest carbon, reforestation, climate-smart agriculture, cover
+crops, blue carbon</td>
+</tr>
+<tr>
+<td><strong>SC13 ‡</strong></td>
+<td>…require or allow climate-risk disclosure and climate/ESG
+considerations in finance.</td>
+<td>SEC climate disclosure, ESG in pension investment (DOL rule);
+opposing ESG rules = <strong>disagree</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>Notes:</em> SC10 is cross-party (clean vs. fossil projects). SC11
+is coded only when resilience spending is linked to climate or extreme
+weather. SC12 excludes forest management framed only as wildfire
+prevention (that is SC11). SC2 was the weakest node in v0.3 (3%);
+broadening it to unspecified carbon pricing is intended to raise
+prevalence.</p>
+<h3 id="boundary-anchors-dc1-dc4-pc4-sc4-v0.5-final">Boundary anchors:
+DC1, DC4, PC4, SC4 (v0.5 final)</h3>
+<p>These four concepts had the lowest re-code agreement in the v0.5
+re-pilot (κ 0.69–0.76; Pilot Report v0.5 §5). The anchors below are
+verbatim passages from pilot speeches, mostly ones on which the two LLM
+runs disagreed, with the code each should receive. Like every attributed
+anchor in this codebook, they come from pilot speeches
+<strong>outside</strong> the human reliability set; the few constructed
+examples fill gaps where no such passage exists. “Not coded” means not
+coded <strong>for this concept</strong>; other codes may apply.</p>
+<p><strong>DC1 (limited government).</strong> Code the <em>value</em>:
+government should step back and leave choices to markets and
+individuals. Complaints about a particular regulation, and labels for an
+instrument, are not the value.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Passage</th>
+<th>Code</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Making someone dependent on government is not helping them; it is
+hurting them.” (Tuberville, in a welfare passage)</td>
+<td>DC1 agree</td>
+<td>General principle; counts even outside energy (§3)</td>
+</tr>
+<tr>
+<td>“allow consumers and the market to determine the cars and engine
+technology needed” (Allen, on EPA vehicle rules)</td>
+<td>DC1 agree (+ SC3 disagree)</td>
+<td>States that markets and consumers, not government, should
+decide</td>
+</tr>
+<tr>
+<td>“we decided in the House we were going to allow a free-market
+approach to handle this rather than have the United States EPA regulate
+emissions in this country.” (Boccieri)</td>
+<td>DC1 agree (+ SC3 disagree)</td>
+<td>Prefers markets <strong>over</strong> government direction, not just
+a label</td>
+</tr>
+<tr>
+<td>“sticking a fork in these inflation- causing laws and burdensome
+regulations” (Ernst)</td>
+<td>Not coded</td>
+<td>Attack on regulation, no general principle; code SC3 or PC4 if the
+target or cost is named</td>
+</tr>
+<tr>
+<td>“like myself, who support a market-based carbon cap- and-trade
+system” (Snowe)</td>
+<td>Not coded (SC1 agree)</td>
+<td>“Market-based” labels the instrument; no stated preference for
+markets over government</td>
+</tr>
+<tr>
+<td>“voluntary programs unfortunately do not work.” (Lieberman)</td>
+<td>DC1 disagree</td>
+<td>Rejects leaving the choice to voluntary action</td>
+</tr>
+</tbody>
+</table>
+<p><strong>DC4 (fiscal restraint).</strong> Like DC2, DC4 codes the
+<em>value</em>, whichever side of a bill it is used on. A supporter who
+says a bill is “paid for” or “reduces the deficit” is appealing to
+fiscal restraint: DC4 <strong>agree</strong>. DC4
+<strong>disagree</strong> is reserved for rejecting restraint (attacking
+cuts or austerity, or saying deficits do not matter). Claims about the
+economic returns of spending, or the cost of climate damage, are not
+DC4. A climate policy called a “tax” because it raises energy prices is
+PC4 (+ SC1), not DC4, unless the speaker also appeals to lower taxes,
+spending, or debt as such.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Passage</th>
+<th>Code</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“the reckless tax-and-spending spree is not helping the American
+people at all” (Cornyn)</td>
+<td>DC4 agree</td>
+<td>Appeal to restraining taxes and spending</td>
+</tr>
+<tr>
+<td>“This bill is fully paid for and reduces the deficit.” (constructed;
+a supporter)</td>
+<td>DC4 agree</td>
+<td>Fiscal restraint invoked in <strong>support</strong> of a bill</td>
+</tr>
+<tr>
+<td>“It will balloon the deficit” (Markey, on the OBBB)</td>
+<td>DC4 agree</td>
+<td>Fiscal restraint is not a partisan code: a Democrat opposing a bill
+on deficit grounds</td>
+</tr>
+<tr>
+<td>“We should oppose the nuclear industry’s latest effort to raid the
+public purse.” (Boxer)</td>
+<td>DC4 agree (+ SC8 disagree)</td>
+<td>Subsidies opposed on fiscal grounds</td>
+</tr>
+<tr>
+<td>“The austere and irresponsible cuts in this bill do not align with
+America’s values.” (Pingree)</td>
+<td>DC4 disagree</td>
+<td>Rejects spending restraint</td>
+</tr>
+<tr>
+<td>“it is proof that investing in America pays off.” (Huffman)</td>
+<td>Not coded (PC5 agree)</td>
+<td>A claim about returns, not about restraint</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PC4 (economic costs of climate policy).</strong>
+“Climate/clean-energy policy” includes restrictions on fossil-fuel
+supply adopted for climate reasons (LNG export pauses, leasing limits).
+Agree when the speaker says such policy raises costs or harms jobs or
+competitiveness, or treats economic cost as a limit on climate action.
+Disagree when the speaker says the policy lowers costs, saves money, or
+does not raise prices. Not coded: costs conceded by a supporter without
+calling them unacceptable; the cost of climate damage (PC2); savings
+outside energy (health care, drug prices); questions raised without a
+stance.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Passage</th>
+<th>Code</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Pausing LNG export approvals will raise prices here at home.”
+(constructed)</td>
+<td>PC4 agree</td>
+<td>Fossil supply restriction framed as raising prices</td>
+</tr>
+<tr>
+<td>“We need smart energy policies that will strengthen our economy
+without bankrupting American families.” (Cornyn)</td>
+<td>PC4 agree, <code>intensity</code> +1</td>
+<td>Cost as a limit on climate action;
+<code>memo = constraint</code></td>
+</tr>
+<tr>
+<td>“bring us fuel economy so we can save money at the gas pumps”
+(Durbin)</td>
+<td>PC4 disagree (+ SC6 agree)</td>
+<td>The policy saves consumers money</td>
+</tr>
+<tr>
+<td>“If we pass this resolution, it is not a case of hurting the
+economy. Quite the opposite.” (Leahy)</td>
+<td>PC4 disagree</td>
+<td>Rejects the claim that climate policy hurts the economy</td>
+</tr>
+<tr>
+<td>“But it’s going to cost everybody more. It just does.” (Woolsey, a
+supporter)</td>
+<td>Not coded</td>
+<td>Cost conceded, not called unacceptable; note in
+<code>memo</code></td>
+</tr>
+<tr>
+<td>“the cost of inaction was as high and as dangerous as it is in this
+moment.” (E. B. Johnson)</td>
+<td>Not coded (PC2 agree)</td>
+<td>Cost of climate damage, not of policy</td>
+</tr>
+<tr>
+<td>“whether the bill adequately protected the economy” (Specter)</td>
+<td>Not coded</td>
+<td>A question raised, no stance taken</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SC4 (international agreements).</strong> Code SC4 only when
+the speech refers to an <strong>agreement, treaty, or
+negotiation</strong>, named (Kyoto, UNFCCC, Copenhagen, Paris,
+Glasgow/COP, Kigali) or explicit (“an international agreement,” “our
+treaty obligations”). A general call for global cooperation with no
+agreement in view is not SC4 (consider PC6 disagree if the point is that
+the US should act with others).</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Passage</th>
+<th>Code</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“160-some nations signed onto an agreement to try to restrain
+greenhouse gases” (Kerry, praising it)</td>
+<td>SC4 agree</td>
+<td>Endorses the agreement (UNFCCC)</td>
+</tr>
+<tr>
+<td>“the United States meets its obligations by accurately reporting its
+total annual greenhouse gas emissions” (Snowe)</td>
+<td>SC4 agree</td>
+<td>Treaty reporting obligations</td>
+</tr>
+<tr>
+<td>“President Biden is eager to put a show on in Glasgow and impress
+world leaders with dubious commitments that he can’t keep” (Cornyn)</td>
+<td>SC4 disagree</td>
+<td>Dismisses the COP commitments</td>
+</tr>
+<tr>
+<td>“I believe we must urgently address this looming issue–in
+partnership with the rest of the world” (Cantwell)</td>
+<td>Not coded</td>
+<td>Global cooperation, no agreement named in the speech</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a.-intensity-and-hedging">4a. Intensity and hedging</h2>
+<p>Code both for <strong>every</strong> statement, in addition to
+<code>agree</code>.</p>
+<p><strong><code>intensity</code></strong>: strength of the stance, on
+the same proposition.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Example (PC2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>−2</td>
+<td>Strong disagreement</td>
+<td>“We cannot continue to bow to the Ashtoreth of climate alarmism”
+(Lee)</td>
+</tr>
+<tr>
+<td>−1</td>
+<td>Disagreement</td>
+<td>“The purpose of the Clean Air Act was to reduce substances toxic to
+humans, not substances that are not directly harmful to us.”
+(Bunning)</td>
+</tr>
+<tr>
+<td>+1</td>
+<td>Agreement</td>
+<td>“climate change will impact all of these areas, and more.”
+(Tonko)</td>
+</tr>
+<tr>
+<td>+2</td>
+<td>Strong agreement</td>
+<td>“No one in America will be immune from global warming.”
+(Blumenauer)</td>
+</tr>
+</tbody>
+</table>
+<p><code>intensity</code> sign must match <code>agree</code> (agree = 1
+→ +1/+2; agree = 0 → −1/−2). Intensity captures <strong>how far</strong>
+the position is from neutral, not how sure the speaker sounds.</p>
+<p><strong><code>hedged</code></strong> (0/1, replaces
+<code>speaker_certainty</code> in v0.5): does the
+<strong>speaker</strong> qualify their own stance or present it as
+tentative? This is not the coder’s <code>confidence</code>.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Markers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 = hedged</td>
+<td>Stance qualified or tentative</td>
+<td><em>may, might, could, possibly, perhaps, I think, I believe, I
+suspect, it appears, it seems, likely, probably, as I understand it, to
+some extent, some scientists say</em>; “I don’t know”; “we can’t be
+sure”; explicit acknowledgement of uncertainty about the speaker’s own
+stance</td>
+</tr>
+<tr>
+<td>0 = not hedged</td>
+<td>Stance stated without qualification, whether plainly or
+emphatically</td>
+<td>All other statements</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why the change.</strong> Under v0.3, 73% of statements were
+coded emphatic; under the tightened v0.4 rule, 90% were coded neutral
+(Pilot Report v0.4 §6.1). Neither split carried much information, and
+the emphatic level mostly recorded whether a listed booster word was
+present. The partisan signal is in hedging (Republican statements on
+PC1–PC3: 12% hedged vs. 4% for Democrats). Coders now make only the
+hedged/not-hedged judgment. <strong>Emphasis is measured by
+dictionary</strong> (below), not by coder judgment.</p>
+<p>Rules: - <strong>Content ≠ certainty.</strong> “The science is simply
+not settled” = PC3 disagree, <code>hedged</code> = 0 (a confident claim
+that the science is uncertain). “Some say the planet may be warming, but
+I doubt it” = PC1 disagree, <code>hedged</code> = 0; the hedge belongs
+to the position the speaker rejects. - <strong>Hedges must qualify the
+speaker’s own stance.</strong> Modal verbs describing future events
+(“prices could rise 40 percent”) are predictions, not hedges, unless the
+speaker signals doubt about the claim (“prices could perhaps rise,
+though I’m not certain”). - <code>conditional = 1</code> statements are
+usually <code>hedged</code> = 1 unless the condition is itself stated
+emphatically. - <strong>“I believe” + clause</strong> (“I believe this
+bill will raise prices”) is a hedge (1) unless paired with a booster (“I
+firmly believe” = 0). <strong>“Believe in X”</strong> (“We believe in
+the science,” “I believe in American energy”) is an endorsement,
+<strong>not</strong> a hedge (0). - Code from the passage in
+<code>quote</code>; if the speech elsewhere hedges the same stance, note
+it in <code>memo</code>. - <strong>v0.4 compatibility:</strong> v0.4
+<code>speaker_certainty</code> 1 → <code>hedged</code> 1; 2 or 3 →
+<code>hedged</code> 0.</p>
+<p><strong>Dictionary measures (computed by script, not coded).</strong>
+Hedge and booster counts are computed on each statement’s
+<code>quote</code> and on the full speech text (per 1,000 words). They
+serve as the emphasis measure and as a check on <code>hedged</code>.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>List</th>
+<th>Terms (case-insensitive; the list is open-ended and versioned in the
+script)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hedges</td>
+<td>may, might, could, perhaps, possibly, probably, likely, unlikely, I
+think, I believe (not “believe in”), I suspect, I guess, it appears, it
+seems, seemingly, somewhat, to some extent, as I understand it, not
+sure, not certain, uncertain</td>
+</tr>
+<tr>
+<td>Boosters</td>
+<td>clearly, certainly, undeniably, undoubtedly, obviously, without
+question, no doubt, beyond doubt, the fact is, it is a fact, the simple
+truth is, the reality is, the truth is, make no mistake, let me be
+clear, let there be no mistake, everyone knows, there is no dispute, no
+one disputes, there is no question, this isn’t hypothetical, it is
+simply, never, always, absolutely</td>
+</tr>
+</tbody>
+</table>
+<p>The dictionary will mis-score some passages (“may” as a month,
+“could” in a prediction), which is why it is a speech-level measure and
+a check rather than the statement-level code.</p>
+<h2 id="b.-information-sources-new-in-v0.5">4b. Information sources (new
+in v0.5)</h2>
+<p>Code the <strong>external sources of information or
+authority</strong> the speaker invokes. A source is anything outside the
+speaker’s own reasoning that is offered as evidence, expertise, or
+testimony: a scientific body, an agency analysis, a study, a news
+report, a business, a constituent, the speaker’s own first-hand
+observation.</p>
+<h3 id="what-counts">What counts</h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Code it</th>
+<th>Do not code it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A named source: “The IPCC concluded…”, “CBO estimates…”, “According
+to the Heritage Foundation…”</td>
+<td>The bill itself, its text, or its sponsors’ summary of it</td>
+</tr>
+<tr>
+<td>An unnamed but explicit appeal to a source: “Scientists tell us…”,
+“Studies show…”, “Economists agree…”</td>
+<td>Other <strong>Members of Congress</strong> and their floor remarks
+(debate opponents are not information sources). Exceptions: a committee
+<strong>report</strong> or hearing record (<code>congress</code>) and a
+hearing <strong>witness</strong> (code the witness by affiliation)</td>
+</tr>
+<tr>
+<td>Testimony and experience: a constituent’s story, a local business
+owner, the speaker’s own visit (“I stood on the melting permafrost in
+Alaska”)</td>
+<td>Generic common knowledge with no appeal to a source (“Gas prices are
+high”); claims about what “the American people” want with no poll or
+survey cited</td>
+</tr>
+<tr>
+<td>Inserted letters, reports, articles, or SAPs the speaker introduces
+(§3a; <code>inserted = 1</code>)</td>
+<td>Sources cited <strong>inside</strong> inserted material</td>
+</tr>
+<tr>
+<td>A source the speaker <strong>attacks</strong> or discredits (“The
+so-called experts at the IPCC have been wrong before”)</td>
+<td>The speaker’s own party or the President as a
+<strong>political</strong> opponent or ally (“the President’s radical
+agenda”); code the executive only when it is cited as a source of
+information or analysis (“the Administration’s own analysis shows”)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fields-one-row-per-source-per-speech">Fields (one row per source
+per speech)</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Field</th>
+<th>Values</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>source_name</code></td>
+<td>Free text, as named in the speech</td>
+<td>“IPCC”, “Congressional Budget Office”, “a dairy farmer in
+Wisconsin”, “scientists”. Normalized to a source list after coding.</td>
+</tr>
+<tr>
+<td><code>source_type</code></td>
+<td>See table below</td>
+<td>One type per source.</td>
+</tr>
+<tr>
+<td><code>specific</code></td>
+<td>1 = a named organization, document, or person; 0 = generic or
+unnamed (“scientists,” “studies,” “experts,” “people back home”)</td>
+<td>Generic appeals are a distinct rhetorical move and are expected to
+differ by party.</td>
+</tr>
+<tr>
+<td><code>evidence_form</code></td>
+<td><code>quantitative</code> · <code>finding</code> ·
+<code>testimony</code> · <code>position</code></td>
+<td>What the speaker takes from the source (below).</td>
+</tr>
+<tr>
+<td><code>use</code></td>
+<td><code>support</code> · <code>dispute</code> ·
+<code>mixed</code></td>
+<td>Does the speaker rely on the source (<code>support</code>) or
+discredit it (<code>dispute</code>)?</td>
+</tr>
+<tr>
+<td><code>linked_concepts</code></td>
+<td>List of concept IDs from §4, or empty</td>
+<td>The concepts this source is used to support or undermine <strong>in
+this speech</strong>. Use only concepts also coded as statements in the
+same speech. Empty if the source supports only a
+<code>bill_stance</code> or a point outside the concept list.</td>
+</tr>
+<tr>
+<td><code>inserted</code></td>
+<td>0/1</td>
+<td>1 = inserted material the speaker introduces (§3a).</td>
+</tr>
+<tr>
+<td><code>quote</code></td>
+<td>Verbatim, ≤ 40 words, no ellipses</td>
+<td>The clearest passage naming or invoking the source.</td>
+</tr>
+<tr>
+<td><code>confidence</code></td>
+<td>1–3</td>
+<td>Coder’s confidence.</td>
+</tr>
+<tr>
+<td><code>memo</code></td>
+<td>Free text</td>
+<td>E.g., <code>hearing witness</code>,
+<code>via inserted editorial</code>, unresolved type.</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>source_type</code></strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Code</th>
+<th>Includes</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>science</code></td>
+<td>Scientific assessment bodies, academies, universities, peer-reviewed
+research, federal <strong>science</strong> agencies acting as science
+(NOAA, NASA, USGCRP / National Climate Assessment, national labs’
+research), and generic appeals to “scientists” or “the science”</td>
+<td>IPCC; National Academy of Sciences; “a study in <em>Nature</em>”;
+“97 percent of climate scientists”</td>
+</tr>
+<tr>
+<td><code>govt_analysis</code></td>
+<td>Nonpartisan or agency <strong>economic, budget, and policy
+analysis</strong></td>
+<td>CBO; JCT; GAO; CRS; EIA; Treasury revenue estimates; EPA or DOE
+regulatory impact analyses; CEA</td>
+</tr>
+<tr>
+<td><code>executive</code></td>
+<td>The President, executive officials, or SAPs cited as a source of
+information or official position (not as a political target)</td>
+<td>“Secretary Chu told us…”; “the Statement of Administration Policy
+says…”</td>
+</tr>
+<tr>
+<td><code>military_security</code></td>
+<td>Defense and intelligence sources</td>
+<td>DoD; Joint Chiefs; CNA Military Advisory Board; retired generals;
+intelligence assessments</td>
+</tr>
+<tr>
+<td><code>think_tank</code></td>
+<td>Policy research organizations</td>
+<td>Heritage; AEI; Cato; Brookings; Resources for the Future; Rhodium
+Group; Energy Innovation; Tax Foundation; Princeton REPEAT</td>
+</tr>
+<tr>
+<td><code>advocacy</code></td>
+<td>Environmental, consumer, taxpayer, civil-rights, and other advocacy
+groups; <strong>labor unions</strong> and worker organizations</td>
+<td>Sierra Club; EDF; NRDC; Americans for Prosperity; National Taxpayers
+Union; AFL-CIO; United Mine Workers; BlueGreen Alliance</td>
+</tr>
+<tr>
+<td><code>business</code></td>
+<td>Firms, utilities, trade associations, industry analysts,
+investors</td>
+<td>U.S. Chamber of Commerce; NAM; API; Edison Electric Institute; “Ford
+Motor Company”; Wood Mackenzie</td>
+</tr>
+<tr>
+<td><code>state_local</code></td>
+<td>Governors, state agencies, public utility commissions, mayors,
+regional grid operators</td>
+<td>California Air Resources Board; ERCOT; PJM; “my State’s
+Governor”</td>
+</tr>
+<tr>
+<td><code>international</code></td>
+<td>Foreign governments, international organizations other than the
+IPCC</td>
+<td>IEA; UN; World Bank; “the Chinese Government announced”</td>
+</tr>
+<tr>
+<td><code>courts</code></td>
+<td>Court rulings, opinions, and legal findings, federal or state</td>
+<td><em>Massachusetts v. EPA</em>; <em>West Virginia v. EPA</em>; “a
+Federal judge blocked the rule”</td>
+</tr>
+<tr>
+<td><code>congress</code></td>
+<td>Congressional <strong>documents</strong> and institutional
+positions, not Members’ floor remarks: committee and staff reports,
+hearing records cited as a body of evidence, and earlier resolutions or
+votes cited as the position of Congress</td>
+<td>Energy and Commerce Committee report; “in 12 hearings we heard
+from…”; Byrd-Hagel resolution (95–0). CRS →
+<code>govt_analysis</code></td>
+</tr>
+<tr>
+<td><code>media</code></td>
+<td>News reports, editorials, op-eds, broadcast</td>
+<td><em>Wall Street Journal</em> editorial; AP report; “60 Minutes”</td>
+</tr>
+<tr>
+<td><code>public_opinion</code></td>
+<td>Polls, surveys, and measured public opinion</td>
+<td>Gallup; Pew; “a recent poll shows 70 percent of Americans…”</td>
+</tr>
+<tr>
+<td><code>constituent</code></td>
+<td>Constituents, local businesses, farmers, and residents speaking as
+individuals; letters and calls from home</td>
+<td>“a family in Toledo wrote to me”; “farmers in my district tell
+me”</td>
+</tr>
+<tr>
+<td><code>personal</code></td>
+<td>The speaker’s own first-hand observation or experience</td>
+<td>Site visits; “I have seen the flooding in my district”</td>
+</tr>
+<tr>
+<td><code>expert_generic</code></td>
+<td><strong>Unattributed</strong> expert claims and estimates whose
+source type cannot be identified; always <code>specific = 0</code></td>
+<td>“economists say”; “experts agree”; “some estimates put the cost
+at…”; “studies show this bill will cost jobs”</td>
+</tr>
+<tr>
+<td><code>other</code></td>
+<td>None of the above, including religious leaders and bodies; describe
+in <code>memo</code></td>
+<td>Pope Francis; U.S. Conference of Catholic Bishops; historical
+figures</td>
+</tr>
+</tbody>
+</table>
+<p>Rules for <code>source_type</code>: - <strong>Classify by what the
+source is, not by its politics.</strong> Heritage and Brookings are both
+<code>think_tank</code>. - An agency can fall into different types
+depending on what is cited: NOAA temperature records →
+<code>science</code>; EPA’s cost estimate for a rule →
+<code>govt_analysis</code>; EPA as a regulator being attacked → not a
+source (and possibly SC3 disagree). - A hearing witness → the witness’s
+affiliation (an EIA administrator testifying →
+<code>govt_analysis</code>), <code>memo = hearing witness</code>. The
+hearing record cited as a whole → <code>congress</code>. -
+<strong>Unattributed claims.</strong> Use <code>expert_generic</code>
+only when the speaker invokes expertise or an estimate without saying
+what kind of source it is. If the kind is clear, code that type with
+<code>specific = 0</code>: “scientists say” or “the science” →
+<code>science</code>; “the Administration’s estimates” →
+<code>executive</code>; “industry analysts” → <code>business</code>.
+Generic appeals about the physical climate (“studies show the oceans are
+warming”) → <code>science</code>; about the economic or policy effects
+of a bill (“studies show this will cost jobs”) →
+<code>expert_generic</code>. - <strong>Dissenting (“contrarian”)
+science.</strong> Scientists and studies that dispute the mainstream
+consensus are coded <code>science</code>, like any other scientific
+source. <code>use</code> records the speaker’s stance toward the source,
+not the source’s relation to the consensus: a speaker relying on a
+dissenting scientist is <code>science</code>,
+<code>use = support</code>. Contrarian science is therefore
+<strong>not</strong> separately identified in v0.5 (see §10). - If the
+speaker cites a source <strong>through</strong> another source (“the
+<em>Post</em> reports a new NOAA study”), code the original source
+(<code>science</code>) and note the conduit in <code>memo</code>.</p>
+<p><strong><code>evidence_form</code></strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>quantitative</code></td>
+<td>A number, estimate, or projection taken from the source</td>
+<td>“CBO says this will cost $1.2 trillion”; “EIA projects prices will
+rise 20 percent”</td>
+</tr>
+<tr>
+<td><code>finding</code></td>
+<td>A qualitative conclusion or assessment</td>
+<td>“The National Climate Assessment found that warming is already
+harming agriculture”</td>
+</tr>
+<tr>
+<td><code>testimony</code></td>
+<td>A personal account, story, or observation</td>
+<td>“A farmer in my district told me his diesel costs doubled”</td>
+</tr>
+<tr>
+<td><code>position</code></td>
+<td>The source’s stance, endorsement, or opposition, with no evidence
+offered</td>
+<td>“The Chamber of Commerce opposes this bill”; letters of support</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rules">Rules</h3>
+<ul>
+<li><strong>One row per source per speech.</strong> If the speaker cites
+the same source several times, code it once, listing every linked
+concept and using the clearest quote. If the same source is both relied
+on and attacked, <code>use = mixed</code>.</li>
+<li><strong>Distinct sources:</strong> “CBO” and “JCT” are two sources;
+“scientists” and “the IPCC” in the same speech are two sources (one
+generic, one specific).</li>
+<li><strong>Lists of endorsers</strong> (“This bill is supported by the
+Sierra Club, the AFL-CIO, and the Chamber”) → one row per organization,
+each <code>evidence_form = position</code>. If the list is longer than
+five, code one row with the most frequent <code>source_type</code>,
+<code>source_name = &quot;list: &lt;n&gt; organizations&quot;</code>, and note the
+types in <code>memo</code>.</li>
+<li><strong>Linking to concepts.</strong> Link a source only to concepts
+the speaker uses it for. “CBO says the bill reduces the deficit” → DC4
+(disagree side) if DC4 is coded; a source cited for a raw cost figure in
+a PC4 argument → PC4.</li>
+<li><strong>Silence is not a code.</strong> A speech with no sources has
+no source rows; this is recorded by the speech-level
+<code>n_sources = 0</code>.</li>
+</ul>
+<h2 id="borderline-cases">5. Borderline cases</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“National energy tax” said of cap-and-trade</td>
+<td>SC1 disagree + PC4 agree (not SC2)</td>
+</tr>
+<tr>
+<td>“Put a price on carbon” with no instrument named</td>
+<td>SC2 agree</td>
+</tr>
+<tr>
+<td>Praising the IRA as a whole</td>
+<td><code>bill_stance</code> = support; code only concepts whose reasons
+are given (e.g., PC5, SC5)</td>
+</tr>
+<tr>
+<td>“Green New Deal/Scam” attacks</td>
+<td><code>bill_stance</code> for GND; code instruments/costs only if
+specified (“100 percent renewables” → SC6 disagree)</td>
+</tr>
+<tr>
+<td>“All-of-the-above energy”</td>
+<td>SC7 agree; PC7 agree <strong>and</strong> disagree only if security
+is the stated purpose; add named sources (SC8, SC5) if specified</td>
+</tr>
+<tr>
+<td>Opposing EPA rules as overreach</td>
+<td>SC3 disagree. Add DC5 agree if the argument is that Congress, not
+the agency, should decide; add DC1 agree only if a general
+limited-government principle is stated</td>
+</tr>
+<tr>
+<td>Agency (e.g., Treasury) implementing a law beyond congressional
+intent</td>
+<td>DC5 agree</td>
+</tr>
+<tr>
+<td>China mentioned</td>
+<td>PC6 if the point is that US action is futile without China; PC8 if
+the point is competition over industries or supply chains; code both if
+both are made</td>
+</tr>
+<tr>
+<td>Gas prices blamed on the administration (no climate policy
+named)</td>
+<td>PC4 agree only if tied to climate/clean-energy policy; otherwise not
+coded</td>
+</tr>
+<tr>
+<td>“US forests absorb our emissions, so we are not a net
+contributor”</td>
+<td>PC6 agree if framed as others being responsible; SC12 agree if a
+sink policy is proposed; memo</td>
+</tr>
+<tr>
+<td>Forest management framed as wildfire/climate protection</td>
+<td>SC11</td>
+</tr>
+<tr>
+<td>Cap-and-trade supported as a “free-market approach”</td>
+<td>SC1 agree; add DC1 agree only if the speaker states a preference for
+markets over government direction. The label alone (“market-based”) is
+not DC1 (see boundary anchors, §4)</td>
+</tr>
+<tr>
+<td>Statements on hydro, geothermal, biofuels</td>
+<td>SC5/SC6 depending on instrument; note in <code>memo</code></td>
+</tr>
+<tr>
+<td>A long quotation of a constituent letter read aloud</td>
+<td>See §3a</td>
+</tr>
+</tbody>
+</table>
+<h2 id="speech-level-variables-not-network-nodes">6. Speech-level
+variables (not network nodes)</h2>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Values</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bill_focus</code></td>
+<td><strong>Cap-and-trade era:</strong> waxman-markey · lieberman-warner
+· kerry-boxer · mccain-lieberman · other-captrade · epact-2003 ·
+epact-2005 · eisa-2007 · energy-bill-other. <strong>IRA era:</strong>
+gnd · climate-action-now (H.R. 9) · ajp (American Jobs Plan /
+infrastructure) · bbb · ira · lower-energy-costs (H.R. 1) · obbb.
+<strong>Any era:</strong> cra-epa (CRA or rider on EPA/agency climate
+rules) · appropriations · budget · nomination · none</td>
+<td>Debate context</td>
+</tr>
+<tr>
+<td><code>bill_stance</code></td>
+<td>support · oppose · mixed · none</td>
+<td>Validation against roll-call votes</td>
+</tr>
+<tr>
+<td><code>no_codable_content</code></td>
+<td>0/1</td>
+<td>Exclusion</td>
+</tr>
+<tr>
+<td><code>speech_focus_climate</code></td>
+<td>0/1: is climate/energy the main subject (vs. a passing
+mention)?</td>
+<td>Sensitivity analysis</td>
+</tr>
+<tr>
+<td><code>procedural_objection</code> (new)</td>
+<td>0/1: does the speaker object mainly on procedural grounds (regular
+order, amendment tree, reconciliation, jurisdiction)?</td>
+<td>Separates procedural from substantive opposition</td>
+</tr>
+<tr>
+<td><code>speech_memo</code> (new)</td>
+<td>Free text</td>
+<td>Bill name if <code>other</code>, <code>NEW:</code> concept
+suggestions, <code>DATA:</code> flags</td>
+</tr>
+<tr>
+<td><code>n_sources</code> (v0.5)</td>
+<td>Integer: number of source rows coded for the speech</td>
+<td>Check that “no sources” was a decision, not an omission</td>
+</tr>
+</tbody>
+</table>
+<h2 id="output-format">7. Output format</h2>
+<p>Three files keyed by <code>speech_id</code>.</p>
+<p><strong>Statements</strong>, one row per coded statement
+(DNA-compatible):</p>
+<pre><code>speech_id, bioGuideId, date, concept_id, agree, intensity, hedged, conditional, quote, coder, confidence, memo</code></pre>
+<ul>
+<li><code>quote</code>: verbatim, ≤ 40 words, the clearest passage.
+<strong>No ellipses</strong>; if the clearest passage is longer, choose
+a shorter contiguous span.</li>
+<li><code>intensity</code>: −2, −1, +1, +2 (§4a).</li>
+<li><code>hedged</code>: 0/1 (§4a); the speaker’s displayed
+tentativeness.</li>
+<li><code>confidence</code>: 1–3, the <strong>coder’s</strong>
+confidence in the code.</li>
+<li>One row per speech with <code>concept_id = NONE</code> if
+<code>no_codable_content = 1</code>.</li>
+</ul>
+<p><strong>Sources</strong> (v0.5), one row per source per speech
+(§4b):</p>
+<pre><code>speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evidence_form, use, linked_concepts, inserted, quote, coder, confidence, memo</code></pre>
+<ul>
+<li><code>source_id</code>: S1, S2, … within the speech.</li>
+<li><code>linked_concepts</code>: semicolon-separated concept IDs (e.g.,
+<code>PC4;DC4</code>), or empty.</li>
+<li><code>quote</code>: same rules as for statements; checked against
+the speech file by script.</li>
+</ul>
+<p><strong>Speeches:</strong> speech-level variables (§6).</p>
+<p><strong>Derived analysis matrix:</strong> speech × concept with a
+signed 3-level variable (−1 disagree, 0 not coded, +1 agree) for
+two-sided concepts, and a binary agree indicator for agree-only concepts
+(§1). Speeches coding both stances on a concept are set to 0 in the
+signed version and flagged. <strong>Source matrices:</strong> speech ×
+<code>source_type</code> (presence), and source × concept (counts from
+<code>linked_concepts</code>) for a bipartite source–belief network.</p>
+<h2 id="source-re-pilot-and-reliability-study-next-phase">8. Source
+re-pilot and reliability study (next phase)</h2>
+<p><strong>Step 0: source re-pilot (v0.5).</strong> Before reliability
+testing, LLM-code the same 150 pilot speeches
+(<code>output/pilot/pilot_sample.csv</code>; drawn by
+<code>scripts/pilot_sample.R</code>) with the v0.5 prompt, so the source
+module can be checked for prevalence and workable categories. The v0.4
+statement codes give a baseline: <code>hedged</code> should reproduce
+the v0.4 hedged share (3.9%) and the partisan gap on PC1–PC3.</p>
+<p><strong>Sample for reliability:</strong> the 50-speech subset in
+<code>human_coding_subset.csv</code> (6 per corpus × party × chamber
+cell, 1 Extension per corpus; seed 20260929), in the Policy Learning in
+Congress project’s <code>output/pilot/</code>.</p>
+<p><strong>Coding:</strong> 1. <strong>Human–human:</strong> two coders
+independently code the 50 speeches with v0.5 → Krippendorff’s α per
+concept, for <code>intensity</code> and <code>hedged</code>, and for the
+source fields. 2. <strong>LLM:</strong> re-code the 50 (and ideally all
+150) with v0.5, one independent request per speech, logging the model
+ID, prompt version, date, and raw JSON output. 3.
+<strong>LLM–human:</strong> α per concept, per stance, and per source
+field; review disagreements.</p>
+<p><strong>LLM reproducibility.</strong> Sampling cannot be fixed: as of
+2026-10-21 the Anthropic API rejects <code>temperature</code>,
+<code>top_p</code>, and <code>top_k</code> on every model, so re-running
+the same prompt will not return identical codes. Reproducibility
+therefore rests on (a) the fixed model ID and versioned prompt file, (b)
+archiving every raw response, (c) a re-code stability check (code a
+subset twice; report κ), and (d) LLM–human agreement as the validity
+evidence. Coding can run through the API (scripted; logged) or
+in-session; in-session runs use a fresh subagent per batch that sees
+only the prompt file and the speech files, so batches do not influence
+one another.</p>
+<p><strong>Source agreement</strong> is measured in two steps: (a)
+<strong>detection</strong>, by matching sources across coders on speech
++ normalized <code>source_name</code> (F1 and α on presence); (b)
+<strong>classification</strong>, α for <code>source_type</code>,
+<code>specific</code>, <code>evidence_form</code>, and <code>use</code>
+on the matched sources, and agreement on
+<code>linked_concepts</code>.</p>
+<p><strong>Decision criteria:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Check</th>
+<th>Target</th>
+<th>If missed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Concept prevalence (either stance)</td>
+<td>≥ 5–10% of speeches in at least one corpus</td>
+<td>Merge or drop (applies to †/‡ candidates and core concepts). v0.4:
+30 of 31 passed; SC13 failed.</td>
+</tr>
+<tr>
+<td>Distinctness of related pairs (DC1/DC5, PC6/PC8, PC4/PC9,
+DC2/PC12)</td>
+<td>Separable (α per concept; not near-perfect co-occurrence)</td>
+<td>Merge the pair</td>
+</tr>
+<tr>
+<td>Human–human α</td>
+<td>≥ 0.67 (tentative), ≥ 0.80 (good)</td>
+<td>Revise definitions and borderline rules</td>
+</tr>
+<tr>
+<td>LLM–human α</td>
+<td>Comparable to human–human</td>
+<td>Revise the prompt; add anchors; human-code that concept</td>
+</tr>
+<tr>
+<td>Disagree stance observed</td>
+<td>≥ 10% for two-sided treatment</td>
+<td>Treat as agree-only</td>
+</tr>
+<tr>
+<td><code>bill_stance</code> vs. roll-call vote</td>
+<td>High agreement</td>
+<td>Check attribution rules</td>
+</tr>
+<tr>
+<td>α for <code>intensity</code> and <code>hedged</code></td>
+<td>≥ 0.67</td>
+<td>Drop the statement-level code; rely on the dictionary and on
+measures B/C in the belief-certainty memo</td>
+</tr>
+<tr>
+<td><code>hedged</code> vs. dictionary hedge rate</td>
+<td>Positive association at the speech level</td>
+<td>Review the hedge rules and the dictionary list</td>
+</tr>
+<tr>
+<td>Source prevalence by <code>source_type</code></td>
+<td>≥ 5% of speeches in at least one period</td>
+<td>Merge into a neighboring type (as done for <code>labor</code> →
+<code>advocacy</code> and <code>religious</code> → <code>other</code>
+after the re-pilot)</td>
+</tr>
+<tr>
+<td>Source detection F1 (human–human)</td>
+<td>≥ 0.80</td>
+<td>Tighten §4b “what counts,” especially generic appeals and
+testimony</td>
+</tr>
+<tr>
+<td>α for <code>source_type</code>, <code>evidence_form</code>,
+<code>use</code></td>
+<td>≥ 0.67</td>
+<td>Collapse categories (e.g., <code>evidence_form</code> → evidence
+vs. position)</td>
+</tr>
+<tr>
+<td>Agreement on <code>linked_concepts</code></td>
+<td>≥ 0.67 on matched sources</td>
+<td>Code source–concept links at speech level only (co-occurrence)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="llm-prompt-skeleton-v0.5">9. LLM prompt skeleton (v0.5)</h2>
+<p>The full prompt is <code>codebook/prompt_v0.5.txt</code> (final; md5
+<code>99c9df718d03ba342379e03b7900db4e</code>), generated from §§3, 3a,
+4, 4a, 4b, 5, and 6 verbatim plus the JSON block below. The draft prompt
+used in the re-pilot is archived in <code>output/pilot/v0.5/</code>.</p>
+<pre><code>You are coding a U.S. Congressional Record floor speech for (1) the speaker&#39;s
+own stated positions on climate and energy policy and (2) the information
+sources the speaker invokes.
+
+[Insert Sections 3, 3a, 4, 4a, 4b, 5, and 6 of the codebook verbatim]
+
+Return JSON:
+{&quot;speech_id&quot;: &quot;...&quot;,
+ &quot;no_codable_content&quot;: 0|1,
+ &quot;bill_focus&quot;: &quot;...&quot;, &quot;bill_stance&quot;: &quot;...&quot;, &quot;speech_focus_climate&quot;: 0|1,
+ &quot;procedural_objection&quot;: 0|1, &quot;n_sources&quot;: 0, &quot;speech_memo&quot;: &quot;&quot;,
+ &quot;statements&quot;: [
+   {&quot;concept_id&quot;: &quot;PC1&quot;, &quot;agree&quot;: 1, &quot;intensity&quot;: -2|-1|1|2,
+    &quot;hedged&quot;: 0|1, &quot;conditional&quot;: 0,
+    &quot;quote&quot;: &quot;&lt;verbatim contiguous span, &lt;=40 words, no ellipses&gt;&quot;,
+    &quot;confidence&quot;: 1-3, &quot;memo&quot;: &quot;&quot;}
+ ],
+ &quot;sources&quot;: [
+   {&quot;source_id&quot;: &quot;S1&quot;, &quot;source_name&quot;: &quot;...&quot;, &quot;source_type&quot;: &quot;science|govt_analysis|executive|military_security|think_tank|advocacy|business|state_local|international|courts|congress|media|public_opinion|constituent|personal|expert_generic|other&quot;,
+    &quot;specific&quot;: 0|1, &quot;evidence_form&quot;: &quot;quantitative|finding|testimony|position&quot;,
+    &quot;use&quot;: &quot;support|dispute|mixed&quot;, &quot;linked_concepts&quot;: [&quot;PC4&quot;], &quot;inserted&quot;: 0|1,
+    &quot;quote&quot;: &quot;&lt;verbatim contiguous span, &lt;=40 words, no ellipses&gt;&quot;,
+    &quot;confidence&quot;: 1-3, &quot;memo&quot;: &quot;&quot;}
+ ]}
+
+Code each concept x stance at most once and each source at most once.
+Do not infer positions from party. If a stance is not explicitly or
+unambiguously expressed, do not code it. Code only the speaker&#39;s own words
+for stances (Section 3a); code inserted material as sources with inserted = 1.
+n_sources must equal the length of &quot;sources&quot;.
+
+SPEECH:
+&lt;header + text&gt;</code></pre>
+<h2 id="open-issues">10. Open issues</h2>
+<ul>
+<li><strong>Boundary anchors (v0.5 final):</strong> check whether the
+DC1, DC4, PC4, and SC4 anchors raise agreement in the human study; DC4’s
+“value on either side” rule and PC4’s “cost as a constraint” rule are
+the main changes to watch.</li>
+<li><strong>Sources:</strong> Is the 17-category
+<code>source_type</code> list too fine for reliable coding? After the
+re-pilot, <code>labor</code> and <code>religious</code> were merged and
+<code>courts</code>, <code>congress</code>, <code>public_opinion</code>,
+and <code>expert_generic</code> added. Further merge candidates if α is
+low: <code>executive</code> into <code>govt_analysis</code>;
+<code>think_tank</code> and <code>military_security</code> (each ≥ 5% in
+only one period).</li>
+<li><strong>Sources:</strong> Contrarian science. In the re-pilot,
+Republican <code>science</code> citations mixed mainstream bodies with
+dissenting scientists (e.g., one Inhofe speech cites dozens), so the
+partisan gap in science citation understates the difference in
+<em>which</em> science is cited. Options: add a <code>consensus</code>
+field (mainstream / dissenting / not applicable) for
+<code>science</code> sources, or classify dissent after coding from the
+normalized <code>source_name</code> list. Decide before full coding if
+RQ2 needs the distinction.</li>
+<li><strong>Sources (new):</strong> Should generic appeals (“scientists
+say,” “studies show”) be treated as sources or as a rhetorical feature
+of the statement? v0.5 codes them as sources with
+<code>specific = 0</code> so either analysis is possible.</li>
+<li><strong>Sources (new):</strong> The corpus files cut most inserted
+material (<code>inserted_words</code> &gt; 0 in only 0.5% of speeches);
+the full text is in <code>raw-records/</code>. Decide whether inserted
+documents should be restored for source coding.</li>
+<li>Does <code>hedged</code> carry enough variation, or should certainty
+be measured only by dispersion across speeches (measure B) and model
+variance (measure C)?</li>
+<li>Do the ‡ candidates (PC10, PC11, PC12, SC12, SC13) meet prevalence
+and reliability criteria in the full data?</li>
+<li>Concept-boundary changes deferred from Pilot Report v0.4 §6.2–6.3:
+PC6 vs. leakage, PC4 wording, PC4/PC9 merge, PC7 “all of the above,” DC2
+equity targeting, SC13 drop, <code>bill_focus</code> additions.</li>
+<li>Can DC1–DC6 be coded reliably, or will deep core nodes need external
+measures (DW-NOMINATE, LCV scores)?</li>
+<li>Does the IRA-corpus rule C (<code>bill_energy</code>) inflate
+SC7/PC7? In the pilot, several <code>bill_energy</code> speeches were
+mostly about other topics; compare against a
+<code>dense</code>/<code>titled</code>-only subsample.</li>
+<li>Data pipeline: fix the insertion filter (letters, SAPs, Clerk-read
+text) and the speaker-split error before full coding (Pilot Report v0.3
+§6).</li>
+</ul>
+<h2 id="related-documents-policy-learning-in-congress-project">Related
+documents (Policy Learning in Congress project)</h2>
+<ul>
+<li><code>output/pilot-codebook-congressional-belief-networks.md</code>
+(v0.4)</li>
+<li><code>output/pilot/v0.4/pilot-report-v04.md</code></li>
+<li><code>output/measuring-beliefs-belief-certainty-congressional-record.md</code></li>
+<li><code>output/belief-network-feasibility-after-pilot.md</code></li>
+</ul>
+</body>
+</html>

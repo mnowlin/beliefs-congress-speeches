@@ -1,4 +1,4 @@
-Project title: Belief Systems and the Climate Change Discourse in the US Congress
+Project title: Belief Systems and Climate Change Discourse in the US Congress
 Project name: beliefs-congress-speeches
 
 This is an academic article that examines the feasibility of measuring belief systems using floor speeches in the US Congress. 
