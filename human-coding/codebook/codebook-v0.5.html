@@ -243,9 +243,29 @@ paraphrases.</p>
 <code>00-policy-learning-congress/output/pilot-codebook-congressional-belief-networks.md</code>
 and are unchanged. The concept list (§4) is identical to v0.4.
 Concept-boundary changes proposed in Pilot Report v0.4 §6.2–6.3
-(PC6/leakage, PC4 wording, PC4/PC9, PC7 “all of the above,” SC13) are
-deferred until the reliability results are in.</p>
-<p><strong>Version history</strong> - <strong>v0.5 final
+(PC6/leakage, PC4 wording, PC4/PC9, PC7 “all of the above”) are deferred
+until the reliability results are in. SC13 is kept (decided 2026-11-13)
+although it missed the prevalence criterion in both pilots.</p>
+<p><strong>Version history</strong> - <strong>v0.5 final, revised
+(2026-11-13, second revision after the validation batches):</strong>
+three rules the first 38 speeches coded with the revised prompt showed
+were missing. <code>bill_stance</code> is the stance on the underlying
+bill, not on an amendment (§6); new <code>bill_focus</code> value
+<code>other-bill</code> for named bills not on the list, so that
+<code>none</code> means no bill is in view (§6); <code>hedged</code> is
+judged from how the speaker holds the stance, not from the wording of
+the quoted sentence (§4a). The 38 speeches were coded again with the new
+prompt; the first run is kept as a re-code stability check. -
+<strong>v0.5 final, revised (2026-11-13):</strong> decisions made before
+full coding. New <code>consensus</code> field for <code>science</code>
+sources (<code>mainstream</code> / <code>dissenting</code>;
+<code>na</code> for every other type), which replaces the note that
+contrarian science is not identified (§4b). Full coding covers the three
+debate windows only (§2). Inserted material is coded only where it
+survives in the speech files; it is not restored from
+<code>raw-records/</code> (§3a, §10). SC13 is kept. No change to the
+concepts, the other source fields, or the anchors. The prompt is now
+built by <code>scripts/build_prompt.R</code>. - <strong>v0.5 final
 (2026-10-23):</strong> boundary anchors for DC1, DC4, PC4, and SC4, the
 concepts with the lowest re-code agreement (§4); attributed anchors
 throughout the codebook replaced where they came from speeches in the
@@ -329,6 +349,15 @@ analysis</h2>
 <td>Corpora</td>
 <td><code>data/cap-and-trade-congressional-record/</code> (2000–2012);
 <code>data/ira-congressional-record/</code> (2018–2026)</td>
+</tr>
+<tr>
+<td>Full coding sample (decided 2026-11-13)</td>
+<td>Speeches by Democrats and Republicans inside the three debate
+windows: cap-and-trade (2009-03-31 to 2010-07-22), IRA (2021-08-11 to
+2022-08-16), and OBBB (2025-02-25 to 2025-07-04); 1,281 speeches. Drawn
+by <code>scripts/coding_sample.R</code> from the <code>window</code>
+variable in <code>scripts/analysis.R</code>. Speeches outside the
+windows are not coded.</td>
 </tr>
 <tr>
 <td>Document</td>
@@ -1192,11 +1221,18 @@ emphatically. - <strong>“I believe” + clause</strong> (“I believe this
 bill will raise prices”) is a hedge (1) unless paired with a booster (“I
 firmly believe” = 0). <strong>“Believe in X”</strong> (“We believe in
 the science,” “I believe in American energy”) is an endorsement,
-<strong>not</strong> a hedge (0). - Code from the passage in
-<code>quote</code>; if the speech elsewhere hedges the same stance, note
-it in <code>memo</code>. - <strong>v0.4 compatibility:</strong> v0.4
-<code>speaker_certainty</code> 1 → <code>hedged</code> 1; 2 or 3 →
-<code>hedged</code> 0.</p>
+<strong>not</strong> a hedge (0). - <strong>Judge the stance, not the
+sentence.</strong> <code>hedged</code> describes how the speaker holds
+the stance where it is stated, not the wording of the one sentence
+quoted. Choose the clearest <code>quote</code> without regard to
+hedging; do not pick a quote to avoid or to capture a hedge word. “I
+believe” or “we believe” + clause inside an otherwise emphatic passage
+(“We believe this is the fight of our generation, and we will not back
+down”) is <strong>not</strong> a hedge (0). If the speaker hedges the
+stance in one place and states it flatly in another, code the treatment
+that dominates and note the other in <code>memo</code>. - <strong>v0.4
+compatibility:</strong> v0.4 <code>speaker_certainty</code> 1 →
+<code>hedged</code> 1; 2 or 3 → <code>hedged</code> 0.</p>
 <p><strong>Dictionary measures (computed by script, not coded).</strong>
 Hedge and booster counts are computed on each statement’s
 <code>quote</code> and on the full speech text (per 1,000 words). They
@@ -1338,6 +1374,15 @@ differ by party.</td>
 <code>mixed</code></td>
 <td>Does the speaker rely on the source (<code>support</code>) or
 discredit it (<code>dispute</code>)?</td>
+</tr>
+<tr>
+<td><code>consensus</code></td>
+<td><code>mainstream</code> · <code>dissenting</code> ·
+<code>na</code></td>
+<td>For <code>science</code> sources only: is the source cited for a
+claim in line with the scientific consensus on climate change, or for
+one that disputes it (below)? <code>na</code> for every other
+<code>source_type</code>.</td>
 </tr>
 <tr>
 <td><code>linked_concepts</code></td>
@@ -1520,15 +1565,34 @@ what kind of source it is. If the kind is clear, code that type with
 Generic appeals about the physical climate (“studies show the oceans are
 warming”) → <code>science</code>; about the economic or policy effects
 of a bill (“studies show this will cost jobs”) →
-<code>expert_generic</code>. - <strong>Dissenting (“contrarian”)
-science.</strong> Scientists and studies that dispute the mainstream
-consensus are coded <code>science</code>, like any other scientific
-source. <code>use</code> records the speaker’s stance toward the source,
-not the source’s relation to the consensus: a speaker relying on a
-dissenting scientist is <code>science</code>,
-<code>use = support</code>. Contrarian science is therefore
-<strong>not</strong> separately identified in v0.5 (see §10). - If the
-speaker cites a source <strong>through</strong> another source (“the
+<code>expert_generic</code>. - <strong>Consensus (<code>science</code>
+sources only).</strong> <code>consensus</code> records where the source
+stands on the scientific consensus that the climate is warming, that
+human activity is the main cause, and that the effects are serious
+(PC1–PC3). Code it from <strong>what the source is cited for in the
+speech</strong>, not from outside knowledge of the source and not from
+the speaker’s attitude toward it. - <code>dissenting</code>: the source
+is cited for a claim that disputes the consensus (no warming, natural
+causes, harmless or beneficial effects, the models or data are
+unreliable), or the speaker describes the source as a skeptic or
+dissenter. “More than 650 scientists have challenged the claims of the
+IPCC”; “a climatologist at MIT says the warming is well within natural
+variability.” - <code>mainstream</code>: every other
+<code>science</code> source, including sources cited on a scientific
+point that is not about the consensus (a university study of battery
+storage, a national lab’s estimate of wind potential). -
+<code>consensus</code> is independent of <code>use</code>. A speaker who
+attacks the IPCC → <code>use = dispute</code>,
+<code>consensus = mainstream</code>. A speaker who relies on a
+dissenting scientist → <code>use = support</code>,
+<code>consensus = dissenting</code>. A speaker who rebuts a dissenting
+scientist → <code>use = dispute</code>,
+<code>consensus = dissenting</code>. - A mainstream body cited for a
+dissenting claim (“NASA’s own satellite data show no warming in 15
+years”) → <code>dissenting</code>, with
+<code>memo = mainstream body</code>. - A list of dissenting scientists
+is still one row per source, under the list rule below. - If the speaker
+cites a source <strong>through</strong> another source (“the
 <em>Post</em> reports a new NOAA study”), code the original source
 (<code>science</code>) and note the conduit in <code>memo</code>.</p>
 <p><strong><code>evidence_form</code></strong></p>
@@ -1703,12 +1767,20 @@ epact-2005 · eisa-2007 · energy-bill-other. <strong>IRA era:</strong>
 gnd · climate-action-now (H.R. 9) · ajp (American Jobs Plan /
 infrastructure) · bbb · ira · lower-energy-costs (H.R. 1) · obbb.
 <strong>Any era:</strong> cra-epa (CRA or rider on EPA/agency climate
-rules) · appropriations · budget · nomination · none</td>
+rules) · appropriations · budget · nomination · other-bill (any other
+named bill or resolution; name it in <code>speech_memo</code>) · none
+(no bill is in view)</td>
 <td>Debate context</td>
 </tr>
 <tr>
 <td><code>bill_stance</code></td>
-<td>support · oppose · mixed · none</td>
+<td>support · oppose · mixed · none. The stance on the
+<strong>underlying bill</strong> in <code>bill_focus</code>, not on an
+amendment to it: a speaker who addresses only an amendment and takes no
+position on the bill is <code>none</code>, with the amendment and the
+speaker’s position on it in <code>speech_memo</code>
+(<code>AMENDMENT: supports the Olver amendment</code>). Code the stance
+for <code>other-bill</code> as for any listed bill.</td>
 <td>Validation against roll-call votes</td>
 </tr>
 <tr>
@@ -1760,7 +1832,7 @@ confidence in the code.</li>
 </ul>
 <p><strong>Sources</strong> (v0.5), one row per source per speech
 (§4b):</p>
-<pre><code>speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evidence_form, use, linked_concepts, inserted, quote, coder, confidence, memo</code></pre>
+<pre><code>speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evidence_form, use, consensus, linked_concepts, inserted, quote, coder, confidence, memo</code></pre>
 <ul>
 <li><code>source_id</code>: S1, S2, … within the speech.</li>
 <li><code>linked_concepts</code>: semicolon-separated concept IDs (e.g.,
@@ -1774,7 +1846,8 @@ signed 3-level variable (−1 disagree, 0 not coded, +1 agree) for
 two-sided concepts, and a binary agree indicator for agree-only concepts
 (§1). Speeches coding both stances on a concept are set to 0 in the
 signed version and flagged. <strong>Source matrices:</strong> speech ×
-<code>source_type</code> (presence), and source × concept (counts from
+<code>source_type</code> (presence, with <code>science</code> also split
+by <code>consensus</code>), and source × concept (counts from
 <code>linked_concepts</code>) for a bipartite source–belief network.</p>
 <h2 id="source-re-pilot-and-reliability-study-next-phase">8. Source
 re-pilot and reliability study (next phase)</h2>
@@ -1812,9 +1885,9 @@ one another.</p>
 <strong>detection</strong>, by matching sources across coders on speech
 + normalized <code>source_name</code> (F1 and α on presence); (b)
 <strong>classification</strong>, α for <code>source_type</code>,
-<code>specific</code>, <code>evidence_form</code>, and <code>use</code>
-on the matched sources, and agreement on
-<code>linked_concepts</code>.</p>
+<code>specific</code>, <code>evidence_form</code>, <code>use</code>, and
+<code>consensus</code> (on matched <code>science</code> sources) on the
+matched sources, and agreement on <code>linked_concepts</code>.</p>
 <p><strong>Decision criteria:</strong></p>
 <table>
 <colgroup>
@@ -1894,6 +1967,13 @@ testimony</td>
 vs. position)</td>
 </tr>
 <tr>
+<td>α for <code>consensus</code> (matched <code>science</code>
+sources)</td>
+<td>≥ 0.67</td>
+<td>Classify dissent after coding from the normalized
+<code>source_name</code> list</td>
+</tr>
+<tr>
 <td>Agreement on <code>linked_concepts</code></td>
 <td>≥ 0.67 on matched sources</td>
 <td>Code source–concept links at speech level only (co-occurrence)</td>
@@ -1901,10 +1981,14 @@ vs. position)</td>
 </tbody>
 </table>
 <h2 id="llm-prompt-skeleton-v0.5">9. LLM prompt skeleton (v0.5)</h2>
-<p>The full prompt is <code>codebook/prompt_v0.5.txt</code> (final; md5
-<code>99c9df718d03ba342379e03b7900db4e</code>), generated from §§3, 3a,
-4, 4a, 4b, 5, and 6 verbatim plus the JSON block below. The draft prompt
-used in the re-pilot is archived in <code>output/pilot/v0.5/</code>.</p>
+<p>The full prompt is <code>codebook/prompt_v0.5.txt</code> (final,
+revised 2026-11-13), built by <code>scripts/build_prompt.R</code> from
+§§3, 3a, 4, 4a, 4b, 5, and 6 verbatim plus the skeleton below; the
+script prints the file’s md5, which is recorded in <code>LOG.md</code>.
+The 2026-10-23 final prompt, without <code>consensus</code>, had md5
+<code>99c9df718d03ba342379e03b7900db4e</code> (git commit
+<code>f7c2426</code>). The draft prompt used in the re-pilot is archived
+in <code>output/pilot/v0.5/</code>.</p>
 <pre><code>You are coding a U.S. Congressional Record floor speech for (1) the speaker&#39;s
 own stated positions on climate and energy policy and (2) the information
 sources the speaker invokes.
@@ -1925,7 +2009,8 @@ Return JSON:
  &quot;sources&quot;: [
    {&quot;source_id&quot;: &quot;S1&quot;, &quot;source_name&quot;: &quot;...&quot;, &quot;source_type&quot;: &quot;science|govt_analysis|executive|military_security|think_tank|advocacy|business|state_local|international|courts|congress|media|public_opinion|constituent|personal|expert_generic|other&quot;,
     &quot;specific&quot;: 0|1, &quot;evidence_form&quot;: &quot;quantitative|finding|testimony|position&quot;,
-    &quot;use&quot;: &quot;support|dispute|mixed&quot;, &quot;linked_concepts&quot;: [&quot;PC4&quot;], &quot;inserted&quot;: 0|1,
+    &quot;use&quot;: &quot;support|dispute|mixed&quot;, &quot;consensus&quot;: &quot;mainstream|dissenting|na&quot;,
+    &quot;linked_concepts&quot;: [&quot;PC4&quot;], &quot;inserted&quot;: 0|1,
     &quot;quote&quot;: &quot;&lt;verbatim contiguous span, &lt;=40 words, no ellipses&gt;&quot;,
     &quot;confidence&quot;: 1-3, &quot;memo&quot;: &quot;&quot;}
  ]}
@@ -1934,7 +2019,8 @@ Code each concept x stance at most once and each source at most once.
 Do not infer positions from party. If a stance is not explicitly or
 unambiguously expressed, do not code it. Code only the speaker&#39;s own words
 for stances (Section 3a); code inserted material as sources with inserted = 1.
-n_sources must equal the length of &quot;sources&quot;.
+n_sources must equal the length of &quot;sources&quot;. consensus is &quot;mainstream&quot; or
+&quot;dissenting&quot; for science sources and &quot;na&quot; for every other source_type.
 
 SPEECH:
 &lt;header + text&gt;</code></pre>
@@ -1952,40 +2038,46 @@ and <code>expert_generic</code> added. Further merge candidates if α is
 low: <code>executive</code> into <code>govt_analysis</code>;
 <code>think_tank</code> and <code>military_security</code> (each ≥ 5% in
 only one period).</li>
-<li><strong>Sources:</strong> Contrarian science. In the re-pilot,
-Republican <code>science</code> citations mixed mainstream bodies with
-dissenting scientists (e.g., one Inhofe speech cites dozens), so the
-partisan gap in science citation understates the difference in
-<em>which</em> science is cited. Options: add a <code>consensus</code>
-field (mainstream / dissenting / not applicable) for
-<code>science</code> sources, or classify dissent after coding from the
-normalized <code>source_name</code> list. Decide before full coding if
-RQ2 needs the distinction.</li>
+<li><strong>Sources:</strong> Contrarian science. Resolved 2026-11-13
+with the <code>consensus</code> field (§4b). In the re-pilot, Republican
+<code>science</code> citations mixed mainstream bodies with dissenting
+scientists (e.g., one Inhofe speech cites dozens). Still to check:
+whether <code>consensus</code> can be coded reliably from the speech
+text alone, and how often a mainstream body is cited for a dissenting
+claim.</li>
 <li><strong>Sources (new):</strong> Should generic appeals (“scientists
 say,” “studies show”) be treated as sources or as a rhetorical feature
 of the statement? v0.5 codes them as sources with
 <code>specific = 0</code> so either analysis is possible.</li>
-<li><strong>Sources (new):</strong> The corpus files cut most inserted
-material (<code>inserted_words</code> &gt; 0 in only 0.5% of speeches);
-the full text is in <code>raw-records/</code>. Decide whether inserted
-documents should be restored for source coding.</li>
+<li><strong>Sources:</strong> Inserted material. Resolved 2026-11-13:
+code only what survives in the speech files. The corpus files cut most
+inserted material (<code>inserted_words</code> &gt; 0 in only 0.5% of
+speeches) and it is not restored from <code>raw-records/</code>, so
+<code>inserted = 1</code> sources undercount the documents Members put
+in the Record. Report inserted sources as a lower bound.</li>
 <li>Does <code>hedged</code> carry enough variation, or should certainty
 be measured only by dispersion across speeches (measure B) and model
 variance (measure C)?</li>
 <li>Do the ‡ candidates (PC10, PC11, PC12, SC12, SC13) meet prevalence
-and reliability criteria in the full data?</li>
+and reliability criteria in the full data? SC13 is kept for full coding
+(decided 2026-11-13) despite 2.0% prevalence in the re-pilot; drop or
+merge it afterward if it stays under 5% in every window.</li>
 <li>Concept-boundary changes deferred from Pilot Report v0.4 §6.2–6.3:
 PC6 vs. leakage, PC4 wording, PC4/PC9 merge, PC7 “all of the above,” DC2
-equity targeting, SC13 drop, <code>bill_focus</code> additions.</li>
+equity targeting, <code>bill_focus</code> additions. None is made before
+full coding.</li>
 <li>Can DC1–DC6 be coded reliably, or will deep core nodes need external
 measures (DW-NOMINATE, LCV scores)?</li>
 <li>Does the IRA-corpus rule C (<code>bill_energy</code>) inflate
 SC7/PC7? In the pilot, several <code>bill_energy</code> speeches were
 mostly about other topics; compare against a
 <code>dense</code>/<code>titled</code>-only subsample.</li>
-<li>Data pipeline: fix the insertion filter (letters, SAPs, Clerk-read
-text) and the speaker-split error before full coding (Pilot Report v0.3
-§6).</li>
+<li>Data pipeline: the insertion filter misses letters, SAPs, and
+Clerk-read text, and some files contain another Member’s remarks (Pilot
+Report v0.3 §6). The speech files are <strong>not</strong> changed for
+full coding: inserted material that survives is handled by §3a, and
+split or duplicated files are flagged <code>DATA:</code> in
+<code>speech_memo</code> and reviewed after coding.</li>
 </ul>
 <h2 id="related-documents-policy-learning-in-congress-project">Related
 documents (Policy Learning in Congress project)</h2>

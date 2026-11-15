@@ -25,22 +25,38 @@ renv.lock, renv/, .Rprofile          renv project library (R package versions)
 codebook/
   codebook-v0.5.md                   Coding scheme for beliefs (concepts, intensity, hedging)
                                        and information sources (RQ2)
-  prompt_v0.5.txt                    Final LLM coding prompt, generated from codebook sections 3-6
-                                       (the re-pilot's draft prompt is in output/pilot/v0.5/)
+  prompt_v0.5.txt                    Final LLM coding prompt, built from codebook sections 3-6 by
+                                       scripts/build_prompt.R (the re-pilot's draft prompt is in
+                                       output/pilot/v0.5/)
 scripts/
-  analysis.R                         Sourced by the qmd: loads the speech corpora and
-                                       DW-NOMINATE scores and builds the objects used
-                                       in tables, figures, and inline R
+  analysis.R                         Sourced by the qmd: loads the speech corpora,
+                                       DW-NOMINATE scores, and the coded data, and builds
+                                       the objects used in tables, figures, and inline R
+                                       (incl. the belief and source summaries by debate
+                                       and party)
   export-cited-refs.R                Pre-render step: trims the master .bib to cited keys
   pilot_sample.R                     Draws the 150-speech stratified pilot sample
                                        (seed 20260928) -> output/pilot/pilot_sample.csv
   pilot_summarize_v05.R              Validates and summarizes the codebook v0.5 re-pilot
   human_coding_setup.R               Builds human-coding/ (seed 20261023)
+  build_prompt.R                     Builds codebook/prompt_v0.5.txt from the codebook
+  coding_check.R                     Checks each coded batch against its manifest, the codebook's
+                                       allowed values, and the speech files
+  coding_assemble.R                  Builds the three data files and the review lists from the
+                                       raw codes
+  coding_sample.R                    Draws the full-coding sample (seed 20261113): 1,281 D/R
+                                       speeches in the three debate windows, in batches of 10,
+                                       plus the 38 human-coding speeches outside the windows
 human-coding/                        Packet for the human reliability study: INSTRUCTIONS,
                                        codebook v0.5 (md/html/docx), 54 speeches + 4 practice,
                                        one coding workbook per coder (A, B), manifest.csv
 output/pilot/v0.5/                   Codebook v0.5 re-pilot: batch manifests, raw JSONL
                                        codes, CSVs, summary log, pilot-report-v05.md
+output/coding/                       Full coding run (codebook v0.5): samples and batch manifests,
+                                       coder instructions, the prompt used, raw JSONL codes (json/;
+                                       json_recode1/ = first validation run), check results, the three
+                                       data files (llm_statements/sources/speeches.csv), and review/
+                                       (cases set aside for review after coding)
 data/                                Speech corpora and DW-NOMINATE (NOT in git -- see below)
 literature/                          Background literature (NOT in git -- local only)
 ```

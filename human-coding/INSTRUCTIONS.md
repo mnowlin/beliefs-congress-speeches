@@ -62,8 +62,8 @@ For each speech, in order:
 | Column | Enter |
 |---|---|
 | `no_codable_content` | 1 if the speech is procedural or has no codable climate/energy content; otherwise 0. If 1, leave the other columns blank and add no statement or source rows |
-| `bill_focus` | The bill or debate the speech is about (dropdown). Use `none` if no bill is in view |
-| `bill_stance` | support · oppose · mixed · none, toward the bill in `bill_focus` |
+| `bill_focus` | The bill or debate the speech is about (dropdown). Use `other-bill` for a named bill that is not on the list, and name it in `speech_memo`. Use `none` only if no bill is in view |
+| `bill_stance` | support · oppose · mixed · none, toward the **bill** in `bill_focus`, not toward an amendment. If the speaker addresses only an amendment, enter `none` and put the amendment and the speaker's position on it in `speech_memo` (`AMENDMENT: …`) |
 | `speech_focus_climate` | 1 if climate/energy is the main subject; 0 if it is a passing mention |
 | `procedural_objection` | 1 if the speaker objects mainly on procedural grounds |
 | `n_sources` | Number of rows you entered on the `sources` sheet for this speech (0 if none) |
@@ -100,6 +100,7 @@ One row per **source** per speech. If a source is cited several times, enter it 
 | `specific` | 1 = named organization, document, or person; 0 = generic ("studies show") |
 | `evidence_form` | quantitative · finding · testimony · position |
 | `use` | support (the speaker relies on it) · dispute (attacks it) · mixed |
+| `consensus` | For `science` sources only: `mainstream`, or `dissenting` if the source is cited for a claim that disputes the scientific consensus on climate change (§4b). Enter `na` for every other source type |
 | `linked_concepts` | Concept IDs the source is used for, separated by semicolons (e.g., `PC4;DC4`). Use only concepts you also entered as statements for this speech. Leave blank if none |
 | `inserted` | 1 if the source is inserted material the speaker introduces (§3a) |
 | `quote` | The passage naming or invoking the source |

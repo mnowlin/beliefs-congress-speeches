@@ -1,0 +1,10 @@
+CREC-2009-06-03-pt1-PgH6132-2-06	data/cap-and-trade-congressional-record/speeches/2009/CREC-2009-06-03-pt1-PgH6132-2-06.txt
+CREC-2009-06-26-pt1-PgH7451-4-31	data/cap-and-trade-congressional-record/speeches/2009/CREC-2009-06-26-pt1-PgH7451-4-31.txt
+CREC-2009-06-26-pt1-PgH7471-389	data/cap-and-trade-congressional-record/speeches/2009/CREC-2009-06-26-pt1-PgH7471-389.txt
+CREC-2025-06-10-pt1-PgS3296-01	data/ira-congressional-record/speeches/2025/CREC-2025-06-10-pt1-PgS3296-01.txt
+CREC-2021-09-23-pt1-PgH5101-01	data/ira-congressional-record/speeches/2021/CREC-2021-09-23-pt1-PgH5101-01.txt
+CREC-2025-06-28-pt1-PgS3613-72	data/ira-congressional-record/speeches/2025/CREC-2025-06-28-pt1-PgS3613-72.txt
+CREC-2009-03-31-pt1-PgS4009-8-107	data/cap-and-trade-congressional-record/speeches/2009/CREC-2009-03-31-pt1-PgS4009-8-107.txt
+CREC-2022-08-04-pt1-PgS4003-9-01	data/ira-congressional-record/speeches/2022/CREC-2022-08-04-pt1-PgS4003-9-01.txt
+CREC-2009-05-20-pt1-PgH5875-55	data/cap-and-trade-congressional-record/speeches/2009/CREC-2009-05-20-pt1-PgH5875-55.txt
+CREC-2025-03-04-pt1-PgH954-2-01	data/ira-congressional-record/speeches/2025/CREC-2025-03-04-pt1-PgH954-2-01.txt

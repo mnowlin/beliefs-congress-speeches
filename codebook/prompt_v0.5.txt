@@ -182,7 +182,7 @@ Rules:
 - **Hedges must qualify the speaker's own stance.** Modal verbs describing future events ("prices could rise 40 percent") are predictions, not hedges, unless the speaker signals doubt about the claim ("prices could perhaps rise, though I'm not certain").
 - `conditional = 1` statements are usually `hedged` = 1 unless the condition is itself stated emphatically.
 - **"I believe" + clause** ("I believe this bill will raise prices") is a hedge (1) unless paired with a booster ("I firmly believe" = 0). **"Believe in X"** ("We believe in the science," "I believe in American energy") is an endorsement, **not** a hedge (0).
-- Code from the passage in `quote`; if the speech elsewhere hedges the same stance, note it in `memo`.
+- **Judge the stance, not the sentence.** `hedged` describes how the speaker holds the stance where it is stated, not the wording of the one sentence quoted. Choose the clearest `quote` without regard to hedging; do not pick a quote to avoid or to capture a hedge word. "I believe" or "we believe" + clause inside an otherwise emphatic passage ("We believe this is the fight of our generation, and we will not back down") is **not** a hedge (0). If the speaker hedges the stance in one place and states it flatly in another, code the treatment that dominates and note the other in `memo`.
 - **v0.4 compatibility:** v0.4 `speaker_certainty` 1 → `hedged` 1; 2 or 3 → `hedged` 0.
 
 **Dictionary measures (computed by script, not coded).** Hedge and booster counts are computed on each statement's `quote` and on the full speech text (per 1,000 words). They serve as the emphasis measure and as a check on `hedged`.
@@ -217,6 +217,7 @@ Code the **external sources of information or authority** the speaker invokes. A
 | `specific` | 1 = a named organization, document, or person; 0 = generic or unnamed ("scientists," "studies," "experts," "people back home") | Generic appeals are a distinct rhetorical move and are expected to differ by party. |
 | `evidence_form` | `quantitative` · `finding` · `testimony` · `position` | What the speaker takes from the source (below). |
 | `use` | `support` · `dispute` · `mixed` | Does the speaker rely on the source (`support`) or discredit it (`dispute`)? |
+| `consensus` | `mainstream` · `dissenting` · `na` | For `science` sources only: is the source cited for a claim in line with the scientific consensus on climate change, or for one that disputes it (below)? `na` for every other `source_type`. |
 | `linked_concepts` | List of concept IDs from §4, or empty | The concepts this source is used to support or undermine **in this speech**. Use only concepts also coded as statements in the same speech. Empty if the source supports only a `bill_stance` or a point outside the concept list. |
 | `inserted` | 0/1 | 1 = inserted material the speaker introduces (§3a). |
 | `quote` | Verbatim, ≤ 40 words, no ellipses | The clearest passage naming or invoking the source. |
@@ -250,7 +251,12 @@ Rules for `source_type`:
 - An agency can fall into different types depending on what is cited: NOAA temperature records → `science`; EPA's cost estimate for a rule → `govt_analysis`; EPA as a regulator being attacked → not a source (and possibly SC3 disagree).
 - A hearing witness → the witness's affiliation (an EIA administrator testifying → `govt_analysis`), `memo = hearing witness`. The hearing record cited as a whole → `congress`.
 - **Unattributed claims.** Use `expert_generic` only when the speaker invokes expertise or an estimate without saying what kind of source it is. If the kind is clear, code that type with `specific = 0`: "scientists say" or "the science" → `science`; "the Administration's estimates" → `executive`; "industry analysts" → `business`. Generic appeals about the physical climate ("studies show the oceans are warming") → `science`; about the economic or policy effects of a bill ("studies show this will cost jobs") → `expert_generic`.
-- **Dissenting ("contrarian") science.** Scientists and studies that dispute the mainstream consensus are coded `science`, like any other scientific source. `use` records the speaker's stance toward the source, not the source's relation to the consensus: a speaker relying on a dissenting scientist is `science`, `use = support`. Contrarian science is therefore **not** separately identified in v0.5 (see §10).
+- **Consensus (`science` sources only).** `consensus` records where the source stands on the scientific consensus that the climate is warming, that human activity is the main cause, and that the effects are serious (PC1–PC3). Code it from **what the source is cited for in the speech**, not from outside knowledge of the source and not from the speaker's attitude toward it.
+  - `dissenting`: the source is cited for a claim that disputes the consensus (no warming, natural causes, harmless or beneficial effects, the models or data are unreliable), or the speaker describes the source as a skeptic or dissenter. "More than 650 scientists have challenged the claims of the IPCC"; "a climatologist at MIT says the warming is well within natural variability."
+  - `mainstream`: every other `science` source, including sources cited on a scientific point that is not about the consensus (a university study of battery storage, a national lab's estimate of wind potential).
+  - `consensus` is independent of `use`. A speaker who attacks the IPCC → `use = dispute`, `consensus = mainstream`. A speaker who relies on a dissenting scientist → `use = support`, `consensus = dissenting`. A speaker who rebuts a dissenting scientist → `use = dispute`, `consensus = dissenting`.
+  - A mainstream body cited for a dissenting claim ("NASA's own satellite data show no warming in 15 years") → `dissenting`, with `memo = mainstream body`.
+  - A list of dissenting scientists is still one row per source, under the list rule below.
 - If the speaker cites a source **through** another source ("the *Post* reports a new NOAA study"), code the original source (`science`) and note the conduit in `memo`.
 
 **`evidence_form`**
@@ -294,8 +300,8 @@ Rules for `source_type`:
 
 | Variable | Values | Use |
 |---|---|---|
-| `bill_focus` | **Cap-and-trade era:** waxman-markey · lieberman-warner · kerry-boxer · mccain-lieberman · other-captrade · epact-2003 · epact-2005 · eisa-2007 · energy-bill-other. **IRA era:** gnd · climate-action-now (H.R. 9) · ajp (American Jobs Plan / infrastructure) · bbb · ira · lower-energy-costs (H.R. 1) · obbb. **Any era:** cra-epa (CRA or rider on EPA/agency climate rules) · appropriations · budget · nomination · none | Debate context |
-| `bill_stance` | support · oppose · mixed · none | Validation against roll-call votes |
+| `bill_focus` | **Cap-and-trade era:** waxman-markey · lieberman-warner · kerry-boxer · mccain-lieberman · other-captrade · epact-2003 · epact-2005 · eisa-2007 · energy-bill-other. **IRA era:** gnd · climate-action-now (H.R. 9) · ajp (American Jobs Plan / infrastructure) · bbb · ira · lower-energy-costs (H.R. 1) · obbb. **Any era:** cra-epa (CRA or rider on EPA/agency climate rules) · appropriations · budget · nomination · other-bill (any other named bill or resolution; name it in `speech_memo`) · none (no bill is in view) | Debate context |
+| `bill_stance` | support · oppose · mixed · none. The stance on the **underlying bill** in `bill_focus`, not on an amendment to it: a speaker who addresses only an amendment and takes no position on the bill is `none`, with the amendment and the speaker's position on it in `speech_memo` (`AMENDMENT: supports the Olver amendment`). Code the stance for `other-bill` as for any listed bill. | Validation against roll-call votes |
 | `no_codable_content` | 0/1 | Exclusion |
 | `speech_focus_climate` | 0/1: is climate/energy the main subject (vs. a passing mention)? | Sensitivity analysis |
 | `procedural_objection` (new) | 0/1: does the speaker object mainly on procedural grounds (regular order, amendment tree, reconciliation, jurisdiction)? | Separates procedural from substantive opposition |
@@ -316,7 +322,8 @@ Return JSON:
  "sources": [
    {"source_id": "S1", "source_name": "...", "source_type": "science|govt_analysis|executive|military_security|think_tank|advocacy|business|state_local|international|courts|congress|media|public_opinion|constituent|personal|expert_generic|other",
     "specific": 0|1, "evidence_form": "quantitative|finding|testimony|position",
-    "use": "support|dispute|mixed", "linked_concepts": ["PC4"], "inserted": 0|1,
+    "use": "support|dispute|mixed", "consensus": "mainstream|dissenting|na",
+    "linked_concepts": ["PC4"], "inserted": 0|1,
     "quote": "<verbatim contiguous span, <=40 words, no ellipses>",
     "confidence": 1-3, "memo": ""}
  ]}
@@ -325,7 +332,8 @@ Code each concept x stance at most once and each source at most once.
 Do not infer positions from party. If a stance is not explicitly or
 unambiguously expressed, do not code it. Code only the speaker's own words
 for stances (Section 3a); code inserted material as sources with inserted = 1.
-n_sources must equal the length of "sources".
+n_sources must equal the length of "sources". consensus is "mainstream" or
+"dissenting" for science sources and "na" for every other source_type.
 
 SPEECH:
 <header + text>

@@ -128,14 +128,15 @@ bill_focus <- c("waxman-markey", "lieberman-warner", "kerry-boxer",
                 "mccain-lieberman", "other-captrade", "epact-2003", "epact-2005",
                 "eisa-2007", "energy-bill-other", "gnd", "climate-action-now",
                 "ajp", "bbb", "ira", "lower-energy-costs", "obbb", "cra-epa",
-                "appropriations", "budget", "nomination", "none")
+                "appropriations", "budget", "nomination", "other-bill", "none")
 lists <- list(
   concept_id = concepts$concept_id, binary = c(0, 1),
   intensity = c(-2, -1, 1, 2), confidence = 1:3,
   bill_focus = bill_focus, bill_stance = c("support", "oppose", "mixed", "none"),
   source_type = source_types,
   evidence_form = c("quantitative", "finding", "testimony", "position"),
-  use = c("support", "dispute", "mixed")
+  use = c("support", "dispute", "mixed"),
+  consensus = c("mainstream", "dissenting", "na")
 )
 
 # --- Workbooks -------------------------------------------------------------
@@ -199,7 +200,8 @@ build_workbook <- function(df, coder, file, n_stmt, n_src) {
   so <- data.frame(speech_id = character(), source_id = character(),
                    source_name = character(), source_type = character(),
                    specific = integer(), evidence_form = character(),
-                   use = character(), linked_concepts = character(),
+                   use = character(), consensus = character(),
+                   linked_concepts = character(),
                    inserted = integer(), quote = character(),
                    confidence = integer(), memo = character())
   writeData(wb, "sources", so, headerStyle = hdr)
@@ -207,12 +209,14 @@ build_workbook <- function(df, coder, file, n_stmt, n_src) {
   dataValidation(wb, "sources", cols = 1, rows = r, type = "list",
                  value = sprintf("'speeches'!$C$2:$C$%d", nrow(df) + 1))
   add_dropdown(wb, "sources", 4, r, "source_type")
-  for (cc in c(5, 9)) add_dropdown(wb, "sources", cc, r, "binary")
+  for (cc in c(5, 10)) add_dropdown(wb, "sources", cc, r, "binary")
   add_dropdown(wb, "sources", 6, r, "evidence_form")
   add_dropdown(wb, "sources", 7, r, "use")
-  add_dropdown(wb, "sources", 11, r, "confidence")
-  addStyle(wb, "sources", wrap, rows = r, cols = c(3, 10, 12), gridExpand = TRUE)
-  setColWidths(wb, "sources", 1:12, c(36, 8, 28, 16, 8, 13, 9, 16, 8, 60, 10, 30))
+  add_dropdown(wb, "sources", 8, r, "consensus")
+  add_dropdown(wb, "sources", 12, r, "confidence")
+  addStyle(wb, "sources", wrap, rows = r, cols = c(3, 11, 13), gridExpand = TRUE)
+  setColWidths(wb, "sources", 1:13,
+               c(36, 8, 28, 16, 8, 13, 9, 11, 16, 8, 60, 10, 30))
   freezePane(wb, "sources", firstActiveRow = 2)
 
   # concepts: reference list of propositions

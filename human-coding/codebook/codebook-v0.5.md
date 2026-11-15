@@ -1,17 +1,19 @@
 ---
 title: Codebook — Beliefs and Information Sources in the Congressional Record
 created: 2026-09-25
-updated: 2026-10-23
-status: v0.5 final (information-source module and certainty revision; source types revised after the v0.5 re-pilot; pre-reliability)
+updated: 2026-11-13
+status: v0.5 final, revised 2026-11-13 (information-source module and certainty revision; source types revised after the v0.5 re-pilot; `consensus` field for science sources; pre-reliability)
 ---
 
 # Codebook: Beliefs and Information Sources in the Congressional Record
 
 **Status:** v0.5 final, for human reliability coding. v0.4 was revised after the 150-speech LLM pilot (Pilot Report v0.4, in the Policy Learning in Congress project). v0.5 adds an information-source module (§4b, for RQ2) and revises speaker certainty (§4a). The source module was re-piloted on the same 150 speeches (`output/pilot/v0.5/pilot-report-v05.md`) and the `source_type` list revised from the results; human reliability testing has not been done for any part of the codebook. Anchor examples marked with a speaker name are **verbatim quotes from the pilot**; unmarked examples are constructed paraphrases.
 
-v0.4 and earlier live in `00-policy-learning-congress/output/pilot-codebook-congressional-belief-networks.md` and are unchanged. The concept list (§4) is identical to v0.4. Concept-boundary changes proposed in Pilot Report v0.4 §6.2–6.3 (PC6/leakage, PC4 wording, PC4/PC9, PC7 "all of the above," SC13) are deferred until the reliability results are in.
+v0.4 and earlier live in `00-policy-learning-congress/output/pilot-codebook-congressional-belief-networks.md` and are unchanged. The concept list (§4) is identical to v0.4. Concept-boundary changes proposed in Pilot Report v0.4 §6.2–6.3 (PC6/leakage, PC4 wording, PC4/PC9, PC7 "all of the above") are deferred until the reliability results are in. SC13 is kept (decided 2026-11-13) although it missed the prevalence criterion in both pilots.
 
 **Version history**
+- **v0.5 final, revised (2026-11-13, second revision after the validation batches):** three rules the first 38 speeches coded with the revised prompt showed were missing. `bill_stance` is the stance on the underlying bill, not on an amendment (§6); new `bill_focus` value `other-bill` for named bills not on the list, so that `none` means no bill is in view (§6); `hedged` is judged from how the speaker holds the stance, not from the wording of the quoted sentence (§4a). The 38 speeches were coded again with the new prompt; the first run is kept as a re-code stability check.
+- **v0.5 final, revised (2026-11-13):** decisions made before full coding. New `consensus` field for `science` sources (`mainstream` / `dissenting`; `na` for every other type), which replaces the note that contrarian science is not identified (§4b). Full coding covers the three debate windows only (§2). Inserted material is coded only where it survives in the speech files; it is not restored from `raw-records/` (§3a, §10). SC13 is kept. No change to the concepts, the other source fields, or the anchors. The prompt is now built by `scripts/build_prompt.R`.
 - **v0.5 final (2026-10-23):** boundary anchors for DC1, DC4, PC4, and SC4, the concepts with the lowest re-code agreement (§4); attributed anchors throughout the codebook replaced where they came from speeches in the human reliability set; DC4's disagree anchor replaced (a "pays for itself" claim is no longer DC4); the "free-market approach" borderline rule narrowed (§5). `source_type` revised after the re-pilot (Pilot Report v0.5 §6): `other` split into `courts`, `congress`, and `public_opinion`; new `expert_generic` for unattributed expert claims and estimates; `labor` merged into `advocacy` and `religious` into `other` (both under 5% of speeches); note on dissenting ("contrarian") science. The re-pilot used the draft prompt, archived as `output/pilot/v0.5/prompt_v0.5.txt` (md5 `88bee1e99e2366dc4bbd83da14d7c80a`).
 - **v0.5 draft (2026-10-23):** new §4b information sources: one row per source × speech with type, specificity, evidence form, use, and linked concepts; sources are recorded even in inserted material the speaker only introduces (§3a). `speaker_certainty` (3 levels) replaced by binary `hedged`; emphasis is measured by a hedge/booster dictionary instead of by coder judgment; "believe in X" is not a hedge (§4a). Corpus paths updated to this project's `data/`.
 - **v0.4 (2026-09-28):** rules for inserted and endorsed material (§3a); regressivity rule for DC2; SC2 broadened to all carbon pricing; PC7 rewritten as a two-sided proposition about *how* to achieve energy security; emphatic certainty tightened; `bill_focus` list expanded; `procedural_objection` added; 5 new candidate concepts (‡); agree-only nodes flagged; verbatim anchor quotes added.
@@ -40,6 +42,7 @@ Concepts are organized by ACF tier (deep core / policy core / secondary) and cho
 | Item | Definition |
 |---|---|
 | Corpora | `data/cap-and-trade-congressional-record/` (2000–2012); `data/ira-congressional-record/` (2018–2026) |
+| Full coding sample (decided 2026-11-13) | Speeches by Democrats and Republicans inside the three debate windows: cap-and-trade (2009-03-31 to 2010-07-22), IRA (2021-08-11 to 2022-08-16), and OBBB (2025-02-25 to 2025-07-04); 1,281 speeches. Drawn by `scripts/coding_sample.R` from the `window` variable in `scripts/analysis.R`. Speeches outside the windows are not coded. |
 | Document | One speech file (`speeches/{year}/{speech_id}.txt`) = one Member's turn. **Inserted material is not always removed** (see §3a). |
 | Actor | The speaking Member (`bioGuideId` from `index.csv`). Party, state, chamber, and Congress come from metadata, **not** from coding. |
 | Statement | A passage in which the speaker expresses a position on **one** concept. |
@@ -226,7 +229,7 @@ Rules:
 - **Hedges must qualify the speaker's own stance.** Modal verbs describing future events ("prices could rise 40 percent") are predictions, not hedges, unless the speaker signals doubt about the claim ("prices could perhaps rise, though I'm not certain").
 - `conditional = 1` statements are usually `hedged` = 1 unless the condition is itself stated emphatically.
 - **"I believe" + clause** ("I believe this bill will raise prices") is a hedge (1) unless paired with a booster ("I firmly believe" = 0). **"Believe in X"** ("We believe in the science," "I believe in American energy") is an endorsement, **not** a hedge (0).
-- Code from the passage in `quote`; if the speech elsewhere hedges the same stance, note it in `memo`.
+- **Judge the stance, not the sentence.** `hedged` describes how the speaker holds the stance where it is stated, not the wording of the one sentence quoted. Choose the clearest `quote` without regard to hedging; do not pick a quote to avoid or to capture a hedge word. "I believe" or "we believe" + clause inside an otherwise emphatic passage ("We believe this is the fight of our generation, and we will not back down") is **not** a hedge (0). If the speaker hedges the stance in one place and states it flatly in another, code the treatment that dominates and note the other in `memo`.
 - **v0.4 compatibility:** v0.4 `speaker_certainty` 1 → `hedged` 1; 2 or 3 → `hedged` 0.
 
 **Dictionary measures (computed by script, not coded).** Hedge and booster counts are computed on each statement's `quote` and on the full speech text (per 1,000 words). They serve as the emphasis measure and as a check on `hedged`.
@@ -261,6 +264,7 @@ Code the **external sources of information or authority** the speaker invokes. A
 | `specific` | 1 = a named organization, document, or person; 0 = generic or unnamed ("scientists," "studies," "experts," "people back home") | Generic appeals are a distinct rhetorical move and are expected to differ by party. |
 | `evidence_form` | `quantitative` · `finding` · `testimony` · `position` | What the speaker takes from the source (below). |
 | `use` | `support` · `dispute` · `mixed` | Does the speaker rely on the source (`support`) or discredit it (`dispute`)? |
+| `consensus` | `mainstream` · `dissenting` · `na` | For `science` sources only: is the source cited for a claim in line with the scientific consensus on climate change, or for one that disputes it (below)? `na` for every other `source_type`. |
 | `linked_concepts` | List of concept IDs from §4, or empty | The concepts this source is used to support or undermine **in this speech**. Use only concepts also coded as statements in the same speech. Empty if the source supports only a `bill_stance` or a point outside the concept list. |
 | `inserted` | 0/1 | 1 = inserted material the speaker introduces (§3a). |
 | `quote` | Verbatim, ≤ 40 words, no ellipses | The clearest passage naming or invoking the source. |
@@ -294,7 +298,12 @@ Rules for `source_type`:
 - An agency can fall into different types depending on what is cited: NOAA temperature records → `science`; EPA's cost estimate for a rule → `govt_analysis`; EPA as a regulator being attacked → not a source (and possibly SC3 disagree).
 - A hearing witness → the witness's affiliation (an EIA administrator testifying → `govt_analysis`), `memo = hearing witness`. The hearing record cited as a whole → `congress`.
 - **Unattributed claims.** Use `expert_generic` only when the speaker invokes expertise or an estimate without saying what kind of source it is. If the kind is clear, code that type with `specific = 0`: "scientists say" or "the science" → `science`; "the Administration's estimates" → `executive`; "industry analysts" → `business`. Generic appeals about the physical climate ("studies show the oceans are warming") → `science`; about the economic or policy effects of a bill ("studies show this will cost jobs") → `expert_generic`.
-- **Dissenting ("contrarian") science.** Scientists and studies that dispute the mainstream consensus are coded `science`, like any other scientific source. `use` records the speaker's stance toward the source, not the source's relation to the consensus: a speaker relying on a dissenting scientist is `science`, `use = support`. Contrarian science is therefore **not** separately identified in v0.5 (see §10).
+- **Consensus (`science` sources only).** `consensus` records where the source stands on the scientific consensus that the climate is warming, that human activity is the main cause, and that the effects are serious (PC1–PC3). Code it from **what the source is cited for in the speech**, not from outside knowledge of the source and not from the speaker's attitude toward it.
+  - `dissenting`: the source is cited for a claim that disputes the consensus (no warming, natural causes, harmless or beneficial effects, the models or data are unreliable), or the speaker describes the source as a skeptic or dissenter. "More than 650 scientists have challenged the claims of the IPCC"; "a climatologist at MIT says the warming is well within natural variability."
+  - `mainstream`: every other `science` source, including sources cited on a scientific point that is not about the consensus (a university study of battery storage, a national lab's estimate of wind potential).
+  - `consensus` is independent of `use`. A speaker who attacks the IPCC → `use = dispute`, `consensus = mainstream`. A speaker who relies on a dissenting scientist → `use = support`, `consensus = dissenting`. A speaker who rebuts a dissenting scientist → `use = dispute`, `consensus = dissenting`.
+  - A mainstream body cited for a dissenting claim ("NASA's own satellite data show no warming in 15 years") → `dissenting`, with `memo = mainstream body`.
+  - A list of dissenting scientists is still one row per source, under the list rule below.
 - If the speaker cites a source **through** another source ("the *Post* reports a new NOAA study"), code the original source (`science`) and note the conduit in `memo`.
 
 **`evidence_form`**
@@ -338,8 +347,8 @@ Rules for `source_type`:
 
 | Variable | Values | Use |
 |---|---|---|
-| `bill_focus` | **Cap-and-trade era:** waxman-markey · lieberman-warner · kerry-boxer · mccain-lieberman · other-captrade · epact-2003 · epact-2005 · eisa-2007 · energy-bill-other. **IRA era:** gnd · climate-action-now (H.R. 9) · ajp (American Jobs Plan / infrastructure) · bbb · ira · lower-energy-costs (H.R. 1) · obbb. **Any era:** cra-epa (CRA or rider on EPA/agency climate rules) · appropriations · budget · nomination · none | Debate context |
-| `bill_stance` | support · oppose · mixed · none | Validation against roll-call votes |
+| `bill_focus` | **Cap-and-trade era:** waxman-markey · lieberman-warner · kerry-boxer · mccain-lieberman · other-captrade · epact-2003 · epact-2005 · eisa-2007 · energy-bill-other. **IRA era:** gnd · climate-action-now (H.R. 9) · ajp (American Jobs Plan / infrastructure) · bbb · ira · lower-energy-costs (H.R. 1) · obbb. **Any era:** cra-epa (CRA or rider on EPA/agency climate rules) · appropriations · budget · nomination · other-bill (any other named bill or resolution; name it in `speech_memo`) · none (no bill is in view) | Debate context |
+| `bill_stance` | support · oppose · mixed · none. The stance on the **underlying bill** in `bill_focus`, not on an amendment to it: a speaker who addresses only an amendment and takes no position on the bill is `none`, with the amendment and the speaker's position on it in `speech_memo` (`AMENDMENT: supports the Olver amendment`). Code the stance for `other-bill` as for any listed bill. | Validation against roll-call votes |
 | `no_codable_content` | 0/1 | Exclusion |
 | `speech_focus_climate` | 0/1: is climate/energy the main subject (vs. a passing mention)? | Sensitivity analysis |
 | `procedural_objection` (new) | 0/1: does the speaker object mainly on procedural grounds (regular order, amendment tree, reconciliation, jurisdiction)? | Separates procedural from substantive opposition |
@@ -365,7 +374,7 @@ speech_id, bioGuideId, date, concept_id, agree, intensity, hedged, conditional, 
 **Sources** (v0.5), one row per source per speech (§4b):
 
 ```
-speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evidence_form, use, linked_concepts, inserted, quote, coder, confidence, memo
+speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evidence_form, use, consensus, linked_concepts, inserted, quote, coder, confidence, memo
 ```
 
 - `source_id`: S1, S2, … within the speech.
@@ -374,7 +383,7 @@ speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evid
 
 **Speeches:** speech-level variables (§6).
 
-**Derived analysis matrix:** speech × concept with a signed 3-level variable (−1 disagree, 0 not coded, +1 agree) for two-sided concepts, and a binary agree indicator for agree-only concepts (§1). Speeches coding both stances on a concept are set to 0 in the signed version and flagged. **Source matrices:** speech × `source_type` (presence), and source × concept (counts from `linked_concepts`) for a bipartite source–belief network.
+**Derived analysis matrix:** speech × concept with a signed 3-level variable (−1 disagree, 0 not coded, +1 agree) for two-sided concepts, and a binary agree indicator for agree-only concepts (§1). Speeches coding both stances on a concept are set to 0 in the signed version and flagged. **Source matrices:** speech × `source_type` (presence, with `science` also split by `consensus`), and source × concept (counts from `linked_concepts`) for a bipartite source–belief network.
 
 ## 8. Source re-pilot and reliability study (next phase)
 
@@ -389,7 +398,7 @@ speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evid
 
 **LLM reproducibility.** Sampling cannot be fixed: as of 2026-10-21 the Anthropic API rejects `temperature`, `top_p`, and `top_k` on every model, so re-running the same prompt will not return identical codes. Reproducibility therefore rests on (a) the fixed model ID and versioned prompt file, (b) archiving every raw response, (c) a re-code stability check (code a subset twice; report κ), and (d) LLM–human agreement as the validity evidence. Coding can run through the API (scripted; logged) or in-session; in-session runs use a fresh subagent per batch that sees only the prompt file and the speech files, so batches do not influence one another.
 
-**Source agreement** is measured in two steps: (a) **detection**, by matching sources across coders on speech + normalized `source_name` (F1 and α on presence); (b) **classification**, α for `source_type`, `specific`, `evidence_form`, and `use` on the matched sources, and agreement on `linked_concepts`.
+**Source agreement** is measured in two steps: (a) **detection**, by matching sources across coders on speech + normalized `source_name` (F1 and α on presence); (b) **classification**, α for `source_type`, `specific`, `evidence_form`, `use`, and `consensus` (on matched `science` sources) on the matched sources, and agreement on `linked_concepts`.
 
 **Decision criteria:**
 
@@ -406,11 +415,12 @@ speech_id, bioGuideId, date, source_id, source_name, source_type, specific, evid
 | Source prevalence by `source_type` | ≥ 5% of speeches in at least one period | Merge into a neighboring type (as done for `labor` → `advocacy` and `religious` → `other` after the re-pilot) |
 | Source detection F1 (human–human) | ≥ 0.80 | Tighten §4b "what counts," especially generic appeals and testimony |
 | α for `source_type`, `evidence_form`, `use` | ≥ 0.67 | Collapse categories (e.g., `evidence_form` → evidence vs. position) |
+| α for `consensus` (matched `science` sources) | ≥ 0.67 | Classify dissent after coding from the normalized `source_name` list |
 | Agreement on `linked_concepts` | ≥ 0.67 on matched sources | Code source–concept links at speech level only (co-occurrence) |
 
 ## 9. LLM prompt skeleton (v0.5)
 
-The full prompt is `codebook/prompt_v0.5.txt` (final; md5 `99c9df718d03ba342379e03b7900db4e`), generated from §§3, 3a, 4, 4a, 4b, 5, and 6 verbatim plus the JSON block below. The draft prompt used in the re-pilot is archived in `output/pilot/v0.5/`.
+The full prompt is `codebook/prompt_v0.5.txt` (final, revised 2026-11-13), built by `scripts/build_prompt.R` from §§3, 3a, 4, 4a, 4b, 5, and 6 verbatim plus the skeleton below; the script prints the file's md5, which is recorded in `LOG.md`. The 2026-10-23 final prompt, without `consensus`, had md5 `99c9df718d03ba342379e03b7900db4e` (git commit `f7c2426`). The draft prompt used in the re-pilot is archived in `output/pilot/v0.5/`.
 
 ```
 You are coding a U.S. Congressional Record floor speech for (1) the speaker's
@@ -433,7 +443,8 @@ Return JSON:
  "sources": [
    {"source_id": "S1", "source_name": "...", "source_type": "science|govt_analysis|executive|military_security|think_tank|advocacy|business|state_local|international|courts|congress|media|public_opinion|constituent|personal|expert_generic|other",
     "specific": 0|1, "evidence_form": "quantitative|finding|testimony|position",
-    "use": "support|dispute|mixed", "linked_concepts": ["PC4"], "inserted": 0|1,
+    "use": "support|dispute|mixed", "consensus": "mainstream|dissenting|na",
+    "linked_concepts": ["PC4"], "inserted": 0|1,
     "quote": "<verbatim contiguous span, <=40 words, no ellipses>",
     "confidence": 1-3, "memo": ""}
  ]}
@@ -442,7 +453,8 @@ Code each concept x stance at most once and each source at most once.
 Do not infer positions from party. If a stance is not explicitly or
 unambiguously expressed, do not code it. Code only the speaker's own words
 for stances (Section 3a); code inserted material as sources with inserted = 1.
-n_sources must equal the length of "sources".
+n_sources must equal the length of "sources". consensus is "mainstream" or
+"dissenting" for science sources and "na" for every other source_type.
 
 SPEECH:
 <header + text>
@@ -452,15 +464,15 @@ SPEECH:
 
 - **Boundary anchors (v0.5 final):** check whether the DC1, DC4, PC4, and SC4 anchors raise agreement in the human study; DC4's "value on either side" rule and PC4's "cost as a constraint" rule are the main changes to watch.
 - **Sources:** Is the 17-category `source_type` list too fine for reliable coding? After the re-pilot, `labor` and `religious` were merged and `courts`, `congress`, `public_opinion`, and `expert_generic` added. Further merge candidates if α is low: `executive` into `govt_analysis`; `think_tank` and `military_security` (each ≥ 5% in only one period).
-- **Sources:** Contrarian science. In the re-pilot, Republican `science` citations mixed mainstream bodies with dissenting scientists (e.g., one Inhofe speech cites dozens), so the partisan gap in science citation understates the difference in *which* science is cited. Options: add a `consensus` field (mainstream / dissenting / not applicable) for `science` sources, or classify dissent after coding from the normalized `source_name` list. Decide before full coding if RQ2 needs the distinction.
+- **Sources:** Contrarian science. Resolved 2026-11-13 with the `consensus` field (§4b). In the re-pilot, Republican `science` citations mixed mainstream bodies with dissenting scientists (e.g., one Inhofe speech cites dozens). Still to check: whether `consensus` can be coded reliably from the speech text alone, and how often a mainstream body is cited for a dissenting claim.
 - **Sources (new):** Should generic appeals ("scientists say," "studies show") be treated as sources or as a rhetorical feature of the statement? v0.5 codes them as sources with `specific = 0` so either analysis is possible.
-- **Sources (new):** The corpus files cut most inserted material (`inserted_words` > 0 in only 0.5% of speeches); the full text is in `raw-records/`. Decide whether inserted documents should be restored for source coding.
+- **Sources:** Inserted material. Resolved 2026-11-13: code only what survives in the speech files. The corpus files cut most inserted material (`inserted_words` > 0 in only 0.5% of speeches) and it is not restored from `raw-records/`, so `inserted = 1` sources undercount the documents Members put in the Record. Report inserted sources as a lower bound.
 - Does `hedged` carry enough variation, or should certainty be measured only by dispersion across speeches (measure B) and model variance (measure C)?
-- Do the ‡ candidates (PC10, PC11, PC12, SC12, SC13) meet prevalence and reliability criteria in the full data?
-- Concept-boundary changes deferred from Pilot Report v0.4 §6.2–6.3: PC6 vs. leakage, PC4 wording, PC4/PC9 merge, PC7 "all of the above," DC2 equity targeting, SC13 drop, `bill_focus` additions.
+- Do the ‡ candidates (PC10, PC11, PC12, SC12, SC13) meet prevalence and reliability criteria in the full data? SC13 is kept for full coding (decided 2026-11-13) despite 2.0% prevalence in the re-pilot; drop or merge it afterward if it stays under 5% in every window.
+- Concept-boundary changes deferred from Pilot Report v0.4 §6.2–6.3: PC6 vs. leakage, PC4 wording, PC4/PC9 merge, PC7 "all of the above," DC2 equity targeting, `bill_focus` additions. None is made before full coding.
 - Can DC1–DC6 be coded reliably, or will deep core nodes need external measures (DW-NOMINATE, LCV scores)?
 - Does the IRA-corpus rule C (`bill_energy`) inflate SC7/PC7? In the pilot, several `bill_energy` speeches were mostly about other topics; compare against a `dense`/`titled`-only subsample.
-- Data pipeline: fix the insertion filter (letters, SAPs, Clerk-read text) and the speaker-split error before full coding (Pilot Report v0.3 §6).
+- Data pipeline: the insertion filter misses letters, SAPs, and Clerk-read text, and some files contain another Member's remarks (Pilot Report v0.3 §6). The speech files are **not** changed for full coding: inserted material that survives is handled by §3a, and split or duplicated files are flagged `DATA:` in `speech_memo` and reviewed after coding.
 
 ## Related documents (Policy Learning in Congress project)
 - `output/pilot-codebook-congressional-belief-networks.md` (v0.4)
