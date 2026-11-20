@@ -33,7 +33,8 @@ scripts/
                                        DW-NOMINATE scores, and the coded data, and builds
                                        the objects used in tables, figures, and inline R
                                        (incl. the belief and source summaries by debate
-                                       and party)
+                                       and party, the Results tables and figure, and
+                                       helpers for inline values)
   export-cited-refs.R                Pre-render step: trims the master .bib to cited keys
   pilot_sample.R                     Draws the 150-speech stratified pilot sample
                                        (seed 20260928) -> output/pilot/pilot_sample.csv

@@ -307,3 +307,157 @@ wide <- function(d, id, value) {
   m <- tapply(d[[value]], list(as.character(d[[id]]), factor(col, lev)), `[`, 1)
   m[unique(as.character(d[[id]])), , drop = FALSE]
 }
+
+# --- Results: tables, figure, and inline values -------------------------------
+# Used by the Results section of the manuscript. All values come from the
+# matrices above (LLM codes as coded; the review lists are not applied).
+
+grp_cols <- as.vector(t(outer(windows$window, c("D", "R"), paste)))
+grp_labs <- sub(" D$", " (D)", sub(" R$", " (R)", grp_cols))
+wkey <- c(CT = "Cap-and-trade", IRA = "IRA", OBBB = "OBBB")
+pct  <- function(x) round(100 * x)
+f2   <- function(x) sprintf("%.2f", x)
+f1   <- function(x) sprintf("%.1f", x)
+
+# Inline lookups: concept/source type, debate key (CT, IRA, OBBB), party
+bval <- function(concept, w, p, measure, d = beliefs)
+  d[[measure]][d$concept_id == concept & d$window == wkey[[w]] & d$party == p]
+sal <- function(concept, w, p) pct(bval(concept, w, p, "salience"))
+agr <- function(concept, w, p) pct(bval(concept, w, p, "share_agree"))
+pos <- function(concept, w, p) f2(bval(concept, w, p, "position"))
+dsp <- function(concept, w, p) f2(bval(concept, w, p, "dispersion"))
+hed <- function(concept, w, p) pct(bval(concept, w, p, "hedged"))
+bn  <- function(concept, w, p) bval(concept, w, p, "n")
+ssal <- function(type, w, p) pct(bval(type, w, p, "salience",
+                                      transform(sources_by_group, concept_id = source_type)))
+sdis <- function(type, w, p) pct(bval(type, w, p, "share_dispute",
+                                      transform(sources_by_group, concept_id = source_type)))
+scons <- function(w, p, cons) {
+  x <- science_consensus$salience[science_consensus$window == wkey[[w]] &
+                                    science_consensus$party == p &
+                                    science_consensus$consensus == cons]
+  if (length(x) == 0) 0 else pct(x)
+}
+
+# Statements joined to speech-level debate and party
+stmt <- merge(win_statements[, setdiff(names(win_statements), c("window", "party"))],
+              win_speeches[, c("speech_id", "window", "party")], by = "speech_id")
+stmt$tier <- substr(stmt$concept_id, 1, 2)
+stmt$science_concept <- stmt$concept_id %in% c("PC1", "PC2", "PC3")
+grp_table <- function(x, fun = mean) {
+  m <- tapply(x, list(win_speeches$window, win_speeches$party), fun)
+  m
+}
+
+stmt_per_speech <- f1(mean(win_speeches$n_statements[win_speeches$n_statements > 0]))
+pct_strong   <- pct(mean(abs(stmt$intensity) == 2))
+n_hedged     <- sum(stmt$hedged)
+pct_hedged   <- f1(100 * mean(stmt$hedged))
+hedged_group <- tapply(stmt$hedged, list(stmt$window, stmt$party), function(x) f1(100 * mean(x)))
+hedged_sci   <- tapply(stmt$hedged, list(stmt$science_concept, stmt$party),
+                       function(x) f1(100 * mean(x)))   # rows FALSE/TRUE
+n_both_sides <- sum(speech_concept$both_sides)
+n_speech_concept <- nrow(speech_concept)
+
+# Share of each group's statements in each tier
+tier_share <- pct(prop.table(table(stmt$tier, factor(paste(stmt$window, stmt$party),
+                                                     grp_cols)), 2))
+# Share of each group's speeches that address PC1, PC2, or PC3
+sci_talk <- pct(grp_table(win_speeches$speech_id %in%
+  speech_concept$speech_id[speech_concept$concept_id %in% c("PC1", "PC2", "PC3")]))
+# Share of each group's speeches that cite at least one source
+any_src  <- pct(grp_table(win_speeches$speech_id %in% win_sources$speech_id))
+pct_any_src <- pct(mean(win_speeches$speech_id %in% win_sources$speech_id))
+pct_dispute <- pct(mean(win_sources$use == "dispute"))
+
+# Concepts addressed by >= 10 speeches in each party, and how many of them the
+# parties take opposite sides on (sign of the mean position)
+min_n <- 10
+opposite <- do.call(rbind, lapply(windows$window, function(w) {
+  d <- beliefs[beliefs$window == w & beliefs$party == "D" & beliefs$n >= min_n, ]
+  r <- beliefs[beliefs$window == w & beliefs$party == "R" & beliefs$n >= min_n, ]
+  m <- merge(d, r, by = "concept_id")
+  data.frame(window = w, n_both = nrow(m),
+             n_opposite = sum(sign(m$position.x) != sign(m$position.y)))
+}))
+rownames(opposite) <- names(wkey)
+# Correlation of the parties' concept salience within each debate
+party_cor <- sapply(windows$window, function(w)
+  f2(cor(beliefs$salience[beliefs$window == w & beliefs$party == "D"],
+         beliefs$salience[beliefs$window == w & beliefs$party == "R"])))
+names(party_cor) <- names(wkey)
+
+# Robustness: climate/energy as the main subject of the speech
+pct_focus <- pct(tapply(win_speeches$speech_focus_climate %in% 1, win_speeches$window, mean))
+names(pct_focus) <- names(wkey)
+bf <- merge(beliefs, beliefs_focus, by = c("concept_id", "window", "party"))
+cor_focus_sal <- f2(cor(bf$salience.x, bf$salience.y))
+cor_focus_pos <- f2(cor(bf$position.x, bf$position.y, use = "complete.obs"))
+sf <- merge(sources_by_group, sources_by_group_focus,
+            by = c("source_type", "window", "party"))
+cor_focus_src <- f2(cor(sf$salience.x, sf$salience.y))
+
+# Table: salience of each concept (% of speeches) by debate and party
+tab_salience <- wide(beliefs, "concept_id", "salience")
+tab_salience <- data.frame(ID = rownames(tab_salience),
+                           round(100 * tab_salience), check.names = FALSE)
+names(tab_salience)[-1] <- grp_labs
+rownames(tab_salience) <- NULL
+
+# Table: dispersion (SD of speech-level positions) where a group has at least
+# min_n speeches on the concept; concepts with no such cell are dropped
+disp <- wide(beliefs, "concept_id", "dispersion")
+disp[wide(beliefs, "concept_id", "n") < min_n] <- NA
+disp <- disp[rowSums(!is.na(disp)) > 0, , drop = FALSE]
+tab_dispersion <- data.frame(ID = rownames(disp),
+                             apply(disp, 2, function(x) ifelse(is.na(x), "", f2(x))),
+                             check.names = FALSE)
+names(tab_dispersion)[-1] <- grp_labs
+rownames(tab_dispersion) <- NULL
+
+# Table: share of speeches citing each source type by debate and party
+source_labels <- c(
+  advocacy = "Advocacy groups", business = "Business", congress = "Congress",
+  constituent = "Constituents", courts = "Courts", executive = "Executive branch",
+  expert_generic = "Unnamed experts", govt_analysis = "Government analysis",
+  international = "International bodies", media = "Media",
+  military_security = "Military and security", other = "Other",
+  personal = "Personal experience", public_opinion = "Public opinion",
+  science = "Science", state_local = "State and local government",
+  think_tank = "Think tanks")
+tab_sources <- wide(sources_by_group, "source_type", "salience")
+tab_sources <- tab_sources[order(-rowMeans(tab_sources)), ]
+tab_sources <- data.frame(Source = unname(source_labels[rownames(tab_sources)]),
+                          round(100 * tab_sources), check.names = FALSE)
+names(tab_sources)[-1] <- grp_labs
+rownames(tab_sources) <- NULL
+
+# Figure: mean position on each concept by debate and party; point area is
+# proportional to salience; cells with fewer than 5 speeches are omitted
+plot_positions <- function(min_speeches = 5) {
+  cols <- c(D = "#2166ac", R = "#b2182b")
+  pchs <- c(D = 16, R = 17)
+  y <- rev(seq_along(concept_ids))
+  op <- par(mfrow = c(1, 3), mar = c(4, 1, 2, 0.5), oma = c(2, 3, 0, 0),
+            family = "serif")
+  on.exit(par(op))
+  for (w in windows$window) {
+    plot(NA, xlim = c(-2, 2), ylim = c(0.5, length(y) + 0.5), yaxt = "n",
+         xlab = "Mean position", ylab = "", main = w, bty = "l")
+    abline(v = 0, col = "grey60", lty = 2)
+    abline(h = y, col = "grey92")
+    abline(h = c(25.5, 13.5), col = "grey50")
+    if (w == windows$window[1])
+      axis(2, at = y, labels = concept_ids, las = 1, cex.axis = 0.75, outer = FALSE)
+    for (p in c("D", "R")) {
+      d <- beliefs[beliefs$window == w & beliefs$party == p &
+                     beliefs$n >= min_speeches, ]
+      points(d$position, y[match(d$concept_id, concept_ids)], pch = pchs[[p]],
+             col = adjustcolor(cols[[p]], 0.8), cex = 0.5 + 3 * sqrt(d$salience))
+    }
+  }
+  par(fig = c(0, 1, 0, 1), oma = c(0, 0, 0, 0), mar = c(0, 0, 0, 0), new = TRUE)
+  plot.new()
+  legend("bottom", legend = c("Democrats", "Republicans"), pch = pchs,
+         col = cols, bty = "n", cex = 0.9, horiz = TRUE)
+}

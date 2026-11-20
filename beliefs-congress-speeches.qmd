@@ -97,7 +97,79 @@ Codes produced by an LLM need to be validated against the judgment of human code
 
 The analysis is descriptive. To examine whether beliefs can be measured as probability distributions, I examine both the position and the uncertainty of each belief. For position, I use the direction and the intensity of the statements on each concept. For uncertainty, I use the share of statements on each concept that are hedged as well as the dispersion of stances across the speeches that address the concept, since beliefs that are held with less certainty are likely to be expressed less consistently. To examine the information sources cited by members, I use the share of speeches that cite each type of source. I measure sources by their presence in a speech and not by the number of sources cited, since a small number of speeches cite many sources. To compare the three debates, I define the salience of a belief or an information source as the share of speeches in a debate where it appears, and I compare salience across the debates and between Democrats and Republicans. Finally, some speeches address climate or energy only briefly, so I also examine whether the results differ when the analysis is limited to speeches where climate or energy is the main subject.
 
-# Results 
+# Results
+
+<!-- DRAFT (Claude). Results use the LLM codes as coded. The review lists in output/coding/review/ are not applied (e.g., about 178 `science` sources that are likely not climate science), and LLM-human agreement is not yet available. Numbers are inline R and will update when these are done; the interpretive sentences should be checked again then. -->
+
+Speeches that contained at least one codable statement included an average of `r stmt_per_speech` statements. Members also tended to state their positions forcefully, as `r pct_strong` percent of statements were coded at the strongest level of agreement or disagreement. Below, I first describe the positions and the uncertainty of the beliefs expressed in the speeches, then the information sources that members cited, and finally how the salience of beliefs differed across the three debates.
+
+## Belief Positions
+
+@fig-positions shows the mean position of Democrats and Republicans on each concept in each debate. Position ranges from −2 (strong disagreement) to 2 (strong agreement), and the size of each point reflects the share of the party's speeches that address the concept. As expected, the parties take opposite positions on most of the policy core and secondary concepts. In the cap-and-trade debate, `r opposite["CT", "n_both"]` concepts were addressed in at least 10 speeches by each party, and the mean positions of the two parties were on opposite sides of the scale on `r opposite["CT", "n_opposite"]` of them. In the IRA and OBBB debates, the parties were on opposite sides on `r opposite["IRA", "n_opposite"]` of `r opposite["IRA", "n_both"]` and `r opposite["OBBB", "n_opposite"]` of `r opposite["OBBB", "n_both"]` concepts, respectively.
+
+```{r}
+#| label: fig-positions
+#| echo: false
+#| fig-cap: "Mean position on each concept by debate and party. Point size is proportional to the share of the party's speeches that address the concept; concepts addressed in fewer than five of a party's speeches are omitted. Horizontal lines separate the deep core, policy core, and secondary concepts."
+#| fig-width: 7.5
+#| fig-height: 8
+plot_positions()
+```
+
+The clearest division is over the climate problem itself. Every Democratic speech that addressed whether climate change is happening and human caused (PC1) agreed with the proposition. Among Republicans, `r agr("PC1", "CT", "R")` percent of the speeches that addressed PC1 in the cap-and-trade debate agreed with it, as did `r agr("PC3", "CT", "R")` percent of the speeches that addressed the reliability of climate science (PC3). By the IRA debate, only `r bn("PC1", "IRA", "R")` Republican speeches addressed PC1, and none of them agreed with it. Republicans instead focused on the costs of climate and clean energy policy (PC4), which was their most salient policy core belief in all three debates. At least `r min(agr("PC4", "CT", "R"), agr("PC4", "IRA", "R"), agr("PC4", "OBBB", "R"))` percent of the Republican speeches that addressed PC4 agreed that these policies impose unacceptable costs, while `r agr("PC4", "CT", "D")` percent of the Democratic speeches that addressed it agreed in the cap-and-trade debate and none did in the later debates.
+
+The secondary beliefs follow the bills under debate. In the cap-and-trade debate, `r sal("SC1", "CT", "R")` percent of Republican speeches addressed cap-and-trade (SC1), and `r agr("SC1", "CT", "R")` percent of those speeches supported it. Democrats were less unified, as `r agr("SC1", "CT", "D")` percent of the Democratic speeches that addressed SC1 supported it. Republicans supported expanding domestic fossil fuel production (SC7) in nearly every speech that addressed it. Democratic support for SC7 fell from `r agr("SC7", "CT", "D")` percent of the speeches that addressed it in the cap-and-trade debate to `r agr("SC7", "IRA", "D")` percent in the IRA debate and `r agr("SC7", "OBBB", "D")` percent in the OBBB debate.
+
+The deep core beliefs show less division. Republicans agreed that government should minimize intervention in energy markets (DC1) in every speech that addressed it, while few Democrats addressed DC1 at all. However, both parties agreed with the propositions on fairness to disadvantaged communities (DC2) and on fiscal restraint (DC4). Under the codebook, a speaker who argues that a bill is paid for or reduces the deficit agrees with DC4, so the agreement of Democrats with DC4 (`r agr("DC4", "IRA", "D")` percent of the speeches that addressed it in the IRA debate) likely reflects defenses of the bill rather than opposition to it. As a result, the deep core values that members invoked were often shared, but they were applied to opposite conclusions about the bills.
+
+## Uncertainty
+
+Explicit hedging was rare. Only `r n_hedged` of the `r fmt(n_statements)` statements (`r pct_hedged` percent) were hedged. However, hedging was concentrated in the beliefs about the climate problem. Republicans hedged `r hedged_sci["TRUE", "R"]` percent of their statements on PC1, PC2, and PC3, compared with `r hedged_sci["TRUE", "D"]` percent for Democrats and about `r hedged_sci["FALSE", "R"]` percent for all other concepts in both parties. In the cap-and-trade debate, `r hed("PC1", "CT", "R")` percent of the Republican speeches that addressed PC1 included a hedged statement. Hedging also declined over time, from `r hedged_group["Cap-and-trade", "D"]` percent of Democratic and `r hedged_group["Cap-and-trade", "R"]` percent of Republican statements in the cap-and-trade debate to less than 1 percent in both parties in the later debates.
+
+Since hedging was rare, the dispersion of positions within each party is likely the more informative measure of uncertainty. @tbl-dispersion shows the standard deviation of speech-level positions for each party in each debate where at least 10 of the party's speeches addressed the concept. A standard deviation near 0.5 indicates that speeches were on the same side of the proposition and differed only in intensity, while a standard deviation near or above 1 indicates that members of the same party were on both sides. In the cap-and-trade debate, Republican positions were dispersed on PC1 (`r dsp("PC1", "CT", "R")`), PC2 (`r dsp("PC2", "CT", "R")`), and the economic opportunity of clean energy (PC5, `r dsp("PC5", "CT", "R")`). The dispersion on PC1 and PC2 is consistent with the hedging on the climate problem. Democratic positions were dispersed on several secondary beliefs, including cap-and-trade (`r dsp("SC1", "CT", "D")`), EPA regulation of greenhouse gases (SC3, `r dsp("SC3", "CT", "D")`), and fossil fuel production (`r dsp("SC7", "CT", "D")`). In the IRA and OBBB debates, dispersion was lower on most concepts. Part of this decline is due to Republicans no longer addressing the climate problem, which leaves too few speeches to measure their dispersion on these concepts.
+
+```{r}
+#| label: tbl-dispersion
+#| echo: false
+#| tbl-cap: "Dispersion of positions by debate and party (standard deviation of speech-level positions; blank where fewer than 10 of the party's speeches address the concept)"
+knitr::kable(tab_dispersion, format = "pipe", align = c("l", rep("r", 6)))
+```
+
+## Information Sources
+
+Members frequently supported their claims with information from outside sources, as `r pct_any_src` percent of the speeches cited at least one. @tbl-sources shows the share of speeches in each debate that cite each type of source. In the cap-and-trade debate, science was the source cited most often by Democrats (`r ssal("science", "CT", "D")` percent of speeches), while Republicans most often cited the executive branch (`r ssal("executive", "CT", "R")` percent), science (`r ssal("science", "CT", "R")` percent), and unnamed experts (`r ssal("expert_generic", "CT", "R")` percent). Business sources were cited by about a fifth of Republican speeches in every debate, and by `r ssal("business", "CT", "D")`, `r ssal("business", "IRA", "D")`, and `r ssal("business", "OBBB", "D")` percent of Democratic speeches in the cap-and-trade, IRA, and OBBB debates, respectively.
+
+```{r}
+#| label: tbl-sources
+#| echo: false
+#| tbl-cap: "Information sources by debate and party (percent of speeches citing at least one source of each type)"
+knitr::kable(tab_sources, format = "pipe", align = c("l", rep("r", 6)))
+```
+
+Citations of science declined after the cap-and-trade debate. In the IRA debate, `r ssal("science", "IRA", "D")` percent of Democratic and `r ssal("science", "IRA", "R")` percent of Republican speeches cited science, and in the OBBB debate science was cited in `r ssal("science", "OBBB", "D")` percent of Democratic speeches and `r ssal("science", "OBBB", "R")` percent of Republican speeches. The scientific claims that members cited also differed by party. In the cap-and-trade debate, `r scons("CT", "R", "mainstream")` percent of Republican speeches cited science for a claim in line with the scientific consensus and `r scons("CT", "R", "dissenting")` percent cited science for a claim that disputes it. Among Democrats, `r scons("CT", "D", "mainstream")` percent cited science for a mainstream claim and `r scons("CT", "D", "dissenting")` percent for a dissenting claim. Dissenting science almost disappeared from the later debates.
+
+Members rarely disputed the sources they cited, as only `r pct_dispute` percent of sources were disputed. The disputes that did occur were concentrated in sources associated with the other side. Republicans disputed `r sdis("science", "CT", "R")` percent of the science sources they cited in the cap-and-trade debate and `r sdis("executive", "IRA", "R")` percent of the executive branch sources they cited in the IRA debate, and Democrats disputed `r sdis("executive", "OBBB", "D")` percent of the executive branch sources they cited in the OBBB debate.
+
+## Comparing the Debates
+
+@tbl-salience shows the salience of each concept, or the share of speeches in each debate that address it. The cap-and-trade debate was organized around the instrument itself and its costs. Among Republicans, `r sal("PC4", "CT", "R")` percent of speeches addressed the costs of climate policy (PC4) and `r sal("SC1", "CT", "R")` percent addressed cap-and-trade (SC1). Democrats most often addressed the economic opportunity of clean energy (PC5, `r sal("PC5", "CT", "D")` percent), the risks of climate change (PC2, `r sal("PC2", "CT", "D")` percent), and energy security (PC7, `r sal("PC7", "CT", "D")` percent).
+
+```{r}
+#| label: tbl-salience
+#| echo: false
+#| tbl-cap: "Salience of belief concepts by debate and party (percent of speeches that address the concept)"
+knitr::kable(tab_salience, format = "pipe", align = c("l", rep("r", 6)))
+```
+
+The beliefs that were salient shifted in the later debates. Democrats continued to address the climate problem, and `r sal("PC2", "IRA", "D")` percent of Democratic speeches in the IRA debate addressed the risks of climate change. Yet Republicans largely stopped addressing it. The share of speeches that addressed PC1, PC2, or PC3 fell among Republicans from `r sci_talk["Cap-and-trade", "R"]` percent in the cap-and-trade debate to `r sci_talk["IRA", "R"]` percent in the IRA debate and `r sci_talk["OBBB", "R"]` percent in the OBBB debate, while among Democrats it was `r sci_talk["Cap-and-trade", "D"]`, `r sci_talk["IRA", "D"]`, and `r sci_talk["OBBB", "D"]` percent, respectively. In place of the climate problem, Republicans addressed fiscal restraint (DC4, `r sal("DC4", "IRA", "R")` percent in the IRA debate) and fossil fuel production (SC7, `r sal("SC7", "IRA", "R")` percent in the IRA debate and `r sal("SC7", "OBBB", "R")` percent in the OBBB debate). As a result, deep core beliefs made up a larger share of the statements in the IRA debate (`r tier_share["DC", "IRA D"]` percent of Democratic and `r tier_share["DC", "IRA R"]` percent of Republican statements) than in the cap-and-trade debate (`r tier_share["DC", "Cap-and-trade D"]` and `r tier_share["DC", "Cap-and-trade R"]` percent). The secondary beliefs also shifted from cap-and-trade to clean energy tax credits (SC5), which were addressed by `r sal("SC5", "OBBB", "D")` percent of Democratic and `r sal("SC5", "OBBB", "R")` percent of Republican speeches in the OBBB debate.
+
+The two parties also emphasized different beliefs within each debate. The correlation between the salience of the concepts among Democrats and among Republicans was `r party_cor[["CT"]]` in the cap-and-trade debate, `r party_cor[["IRA"]]` in the IRA debate, and `r party_cor[["OBBB"]]` in the OBBB debate. In the OBBB debate, for instance, Democrats most often addressed costs (PC4, `r sal("PC4", "OBBB", "D")` percent) and economic opportunity (PC5, `r sal("PC5", "OBBB", "D")` percent), while Republicans most often addressed fossil fuel production (SC7, `r sal("SC7", "OBBB", "R")` percent). Thus, the parties disagreed not only in their positions but also in which beliefs they treated as relevant to the debate.
+
+## Speeches About Climate and Energy
+
+Some speeches addressed climate or energy only briefly. Climate or energy was the main subject of `r pct_focus[["CT"]]` percent of the speeches in the cap-and-trade debate, `r pct_focus[["IRA"]]` percent in the IRA debate, and `r pct_focus[["OBBB"]]` percent in the OBBB debate. However, limiting the analysis to these speeches does not change the results. Across concepts, debates, and parties, the correlation between the salience of each concept in the full sample and in the limited sample is `r cor_focus_sal`, and the correlation for mean positions is `r cor_focus_pos`. The correlation for the salience of the information sources is `r cor_focus_src`.
+
+In the next section, I discuss what these results suggest about the feasibility of measuring belief systems with congressional speeches.
 
 
 # Discussion and Conclusion 

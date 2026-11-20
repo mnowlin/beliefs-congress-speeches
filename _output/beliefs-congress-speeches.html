@@ -425,6 +425,864 @@ Table&nbsp;2: Belief concepts in the codebook
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>
+<!-- DRAFT (Claude). Results use the LLM codes as coded. The review lists in output/coding/review/ are not applied (e.g., about 178 `science` sources that are likely not climate science), and LLM-human agreement is not yet available. Numbers are inline R and will update when these are done; the interpretive sentences should be checked again then. -->
+<p>Speeches that contained at least one codable statement included an average of 5.0 statements. Members also tended to state their positions forcefully, as 44 percent of statements were coded at the strongest level of agreement or disagreement. Below, I first describe the positions and the uncertainty of the beliefs expressed in the speeches, then the information sources that members cited, and finally how the salience of beliefs differed across the three debates.</p>
+<section id="belief-positions" class="level2">
+<h2 class="anchored" data-anchor-id="belief-positions">Belief Positions</h2>
+<p><a href="#fig-positions" class="quarto-xref">Figure&nbsp;1</a> shows the mean position of Democrats and Republicans on each concept in each debate. Position ranges from −2 (strong disagreement) to 2 (strong agreement), and the size of each point reflects the share of the party’s speeches that address the concept. As expected, the parties take opposite positions on most of the policy core and secondary concepts. In the cap-and-trade debate, 23 concepts were addressed in at least 10 speeches by each party, and the mean positions of the two parties were on opposite sides of the scale on 14 of them. In the IRA and OBBB debates, the parties were on opposite sides on 6 of 8 and 3 of 4 concepts, respectively.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-positions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-positions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Mean position on each concept by debate and party. Point size is proportional to the share of the party’s speeches that address the concept; concepts addressed in fewer than five of a party’s speeches are omitted. Horizontal lines separate the deep core, policy core, and secondary concepts.
+</figcaption>
+<div aria-describedby="fig-positions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="beliefs-congress-speeches_files/figure-html/fig-positions-1.png" class="img-fluid figure-img" width="720">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>The clearest division is over the climate problem itself. Every Democratic speech that addressed whether climate change is happening and human caused (PC1) agreed with the proposition. Among Republicans, 24 percent of the speeches that addressed PC1 in the cap-and-trade debate agreed with it, as did 3 percent of the speeches that addressed the reliability of climate science (PC3). By the IRA debate, only 4 Republican speeches addressed PC1, and none of them agreed with it. Republicans instead focused on the costs of climate and clean energy policy (PC4), which was their most salient policy core belief in all three debates. At least 99 percent of the Republican speeches that addressed PC4 agreed that these policies impose unacceptable costs, while 14 percent of the Democratic speeches that addressed it agreed in the cap-and-trade debate and none did in the later debates.</p>
+<p>The secondary beliefs follow the bills under debate. In the cap-and-trade debate, 78 percent of Republican speeches addressed cap-and-trade (SC1), and 2 percent of those speeches supported it. Democrats were less unified, as 77 percent of the Democratic speeches that addressed SC1 supported it. Republicans supported expanding domestic fossil fuel production (SC7) in nearly every speech that addressed it. Democratic support for SC7 fell from 77 percent of the speeches that addressed it in the cap-and-trade debate to 23 percent in the IRA debate and 24 percent in the OBBB debate.</p>
+<p>The deep core beliefs show less division. Republicans agreed that government should minimize intervention in energy markets (DC1) in every speech that addressed it, while few Democrats addressed DC1 at all. However, both parties agreed with the propositions on fairness to disadvantaged communities (DC2) and on fiscal restraint (DC4). Under the codebook, a speaker who argues that a bill is paid for or reduces the deficit agrees with DC4, so the agreement of Democrats with DC4 (93 percent of the speeches that addressed it in the IRA debate) likely reflects defenses of the bill rather than opposition to it. As a result, the deep core values that members invoked were often shared, but they were applied to opposite conclusions about the bills.</p>
+</section>
+<section id="uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="uncertainty">Uncertainty</h2>
+<p>Explicit hedging was rare. Only 99 of the 6,129 statements (1.6 percent) were hedged. However, hedging was concentrated in the beliefs about the climate problem. Republicans hedged 9.2 percent of their statements on PC1, PC2, and PC3, compared with 2.2 percent for Democrats and about 1.2 percent for all other concepts in both parties. In the cap-and-trade debate, 17 percent of the Republican speeches that addressed PC1 included a hedged statement. Hedging also declined over time, from 2.4 percent of Democratic and 2.3 percent of Republican statements in the cap-and-trade debate to less than 1 percent in both parties in the later debates.</p>
+<p>Since hedging was rare, the dispersion of positions within each party is likely the more informative measure of uncertainty. <a href="#tbl-dispersion" class="quarto-xref">Table&nbsp;3</a> shows the standard deviation of speech-level positions for each party in each debate where at least 10 of the party’s speeches addressed the concept. A standard deviation near 0.5 indicates that speeches were on the same side of the proposition and differed only in intensity, while a standard deviation near or above 1 indicates that members of the same party were on both sides. In the cap-and-trade debate, Republican positions were dispersed on PC1 (1.21), PC2 (1.22), and the economic opportunity of clean energy (PC5, 1.30). The dispersion on PC1 and PC2 is consistent with the hedging on the climate problem. Democratic positions were dispersed on several secondary beliefs, including cap-and-trade (1.33), EPA regulation of greenhouse gases (SC3, 1.39), and fossil fuel production (1.16). In the IRA and OBBB debates, dispersion was lower on most concepts. Part of this decline is due to Republicans no longer addressing the climate problem, which leaves too few speeches to measure their dispersion on these concepts.</p>
+<div class="cell">
+<div id="tbl-dispersion" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: Dispersion of positions by debate and party (standard deviation of speech-level positions; blank where fewer than 10 of the party’s speeches address the concept)
+</figcaption>
+<div aria-describedby="tbl-dispersion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ID</th>
+<th style="text-align: right;">Cap-and-trade (D)</th>
+<th style="text-align: right;">Cap-and-trade (R)</th>
+<th style="text-align: right;">IRA (D)</th>
+<th style="text-align: right;">IRA (R)</th>
+<th style="text-align: right;">OBBB (D)</th>
+<th style="text-align: right;">OBBB (R)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DC1</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DC2</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.35</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DC3</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DC4</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">1.08</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DC5</td>
+<td style="text-align: right;">1.17</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC1</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">1.21</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC2</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">1.22</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC3</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC4</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.40</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.47</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC5</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">1.30</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC6</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC7</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC8</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;">0.44</td>
+<td style="text-align: right;">0.47</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC9</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC10</td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC11</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC12</td>
+<td style="text-align: right;">1.01</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC1</td>
+<td style="text-align: right;">1.33</td>
+<td style="text-align: right;">0.53</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC2</td>
+<td style="text-align: right;">0.67</td>
+<td style="text-align: right;">1.53</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC3</td>
+<td style="text-align: right;">1.39</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC4</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC5</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">1.01</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">0.79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC6</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">1.08</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.52</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.49</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC7</td>
+<td style="text-align: right;">1.16</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.49</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC8</td>
+<td style="text-align: right;">1.08</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC9</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.68</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.43</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC10</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC11</td>
+<td style="text-align: right;">0.48</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC12</td>
+<td style="text-align: right;">0.30</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC13</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;">0.51</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="information-sources" class="level2">
+<h2 class="anchored" data-anchor-id="information-sources">Information Sources</h2>
+<p>Members frequently supported their claims with information from outside sources, as 75 percent of the speeches cited at least one. <a href="#tbl-sources" class="quarto-xref">Table&nbsp;4</a> shows the share of speeches in each debate that cite each type of source. In the cap-and-trade debate, science was the source cited most often by Democrats (36 percent of speeches), while Republicans most often cited the executive branch (35 percent), science (24 percent), and unnamed experts (27 percent). Business sources were cited by about a fifth of Republican speeches in every debate, and by 22, 10, and 36 percent of Democratic speeches in the cap-and-trade, IRA, and OBBB debates, respectively.</p>
+<div class="cell">
+<div id="tbl-sources" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Information sources by debate and party (percent of speeches citing at least one source of each type)
+</figcaption>
+<div aria-describedby="tbl-sources-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Source</th>
+<th style="text-align: right;">Cap-and-trade (D)</th>
+<th style="text-align: right;">Cap-and-trade (R)</th>
+<th style="text-align: right;">IRA (D)</th>
+<th style="text-align: right;">IRA (R)</th>
+<th style="text-align: right;">OBBB (D)</th>
+<th style="text-align: right;">OBBB (R)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Business</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Unnamed experts</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Government analysis</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Science</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Executive branch</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Media</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Personal experience</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Constituents</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Think tanks</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Other</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">International bodies</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">State and local government</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Advocacy groups</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Public opinion</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Courts</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Congress</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Military and security</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Citations of science declined after the cap-and-trade debate. In the IRA debate, 13 percent of Democratic and 9 percent of Republican speeches cited science, and in the OBBB debate science was cited in 22 percent of Democratic speeches and 2 percent of Republican speeches. The scientific claims that members cited also differed by party. In the cap-and-trade debate, 21 percent of Republican speeches cited science for a claim in line with the scientific consensus and 12 percent cited science for a claim that disputes it. Among Democrats, 36 percent cited science for a mainstream claim and 1 percent for a dissenting claim. Dissenting science almost disappeared from the later debates.</p>
+<p>Members rarely disputed the sources they cited, as only 8 percent of sources were disputed. The disputes that did occur were concentrated in sources associated with the other side. Republicans disputed 27 percent of the science sources they cited in the cap-and-trade debate and 52 percent of the executive branch sources they cited in the IRA debate, and Democrats disputed 86 percent of the executive branch sources they cited in the OBBB debate.</p>
+</section>
+<section id="comparing-the-debates" class="level2">
+<h2 class="anchored" data-anchor-id="comparing-the-debates">Comparing the Debates</h2>
+<p><a href="#tbl-salience" class="quarto-xref">Table&nbsp;5</a> shows the salience of each concept, or the share of speeches in each debate that address it. The cap-and-trade debate was organized around the instrument itself and its costs. Among Republicans, 84 percent of speeches addressed the costs of climate policy (PC4) and 78 percent addressed cap-and-trade (SC1). Democrats most often addressed the economic opportunity of clean energy (PC5, 54 percent), the risks of climate change (PC2, 53 percent), and energy security (PC7, 42 percent).</p>
+<div class="cell">
+<div id="tbl-salience" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-salience-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;5: Salience of belief concepts by debate and party (percent of speeches that address the concept)
+</figcaption>
+<div aria-describedby="tbl-salience-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="cell caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ID</th>
+<th style="text-align: right;">Cap-and-trade (D)</th>
+<th style="text-align: right;">Cap-and-trade (R)</th>
+<th style="text-align: right;">IRA (D)</th>
+<th style="text-align: right;">IRA (R)</th>
+<th style="text-align: right;">OBBB (D)</th>
+<th style="text-align: right;">OBBB (R)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DC1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DC2</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DC3</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DC4</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DC5</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DC6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC1</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC2</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">72</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC3</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC4</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">73</td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">57</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC5</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC6</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC7</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC8</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC9</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC10</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PC11</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PC12</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC1</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">78</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC3</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC4</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC5</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC6</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC7</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">65</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">65</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC8</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC9</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC10</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC11</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SC12</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SC13</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The beliefs that were salient shifted in the later debates. Democrats continued to address the climate problem, and 72 percent of Democratic speeches in the IRA debate addressed the risks of climate change. Yet Republicans largely stopped addressing it. The share of speeches that addressed PC1, PC2, or PC3 fell among Republicans from 27 percent in the cap-and-trade debate to 6 percent in the IRA debate and 0 percent in the OBBB debate, while among Democrats it was 58, 73, and 48 percent, respectively. In place of the climate problem, Republicans addressed fiscal restraint (DC4, 64 percent in the IRA debate) and fossil fuel production (SC7, 65 percent in the IRA debate and 65 percent in the OBBB debate). As a result, deep core beliefs made up a larger share of the statements in the IRA debate (27 percent of Democratic and 28 percent of Republican statements) than in the cap-and-trade debate (12 and 17 percent). The secondary beliefs also shifted from cap-and-trade to clean energy tax credits (SC5), which were addressed by 64 percent of Democratic and 33 percent of Republican speeches in the OBBB debate.</p>
+<p>The two parties also emphasized different beliefs within each debate. The correlation between the salience of the concepts among Democrats and among Republicans was 0.41 in the cap-and-trade debate, 0.32 in the IRA debate, and 0.38 in the OBBB debate. In the OBBB debate, for instance, Democrats most often addressed costs (PC4, 76 percent) and economic opportunity (PC5, 66 percent), while Republicans most often addressed fossil fuel production (SC7, 65 percent). Thus, the parties disagreed not only in their positions but also in which beliefs they treated as relevant to the debate.</p>
+</section>
+<section id="speeches-about-climate-and-energy" class="level2">
+<h2 class="anchored" data-anchor-id="speeches-about-climate-and-energy">Speeches About Climate and Energy</h2>
+<p>Some speeches addressed climate or energy only briefly. Climate or energy was the main subject of 85 percent of the speeches in the cap-and-trade debate, 48 percent in the IRA debate, and 64 percent in the OBBB debate. However, limiting the analysis to these speeches does not change the results. Across concepts, debates, and parties, the correlation between the salience of each concept in the full sample and in the limited sample is 0.97, and the correlation for mean positions is 0.99. The correlation for the salience of the information sources is 0.91.</p>
+<p>In the next section, I discuss what these results suggest about the feasibility of measuring belief systems with congressional speeches.</p>
+</section>
 </section>
 <section id="discussion-and-conclusion" class="level1">
 <h1>Discussion and Conclusion</h1>

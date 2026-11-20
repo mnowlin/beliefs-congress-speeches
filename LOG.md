@@ -24,6 +24,15 @@ Connected to the Policy Learning in Congress wiki (`../00-policy-learning-congre
 
 ## Session History
 
+### Session 5 — 2026-11-20 (Draft Results section)
+
+- **Results section drafted** in the qmd (Claude draft, following the nowlin style profile; user to revise): overview, belief positions, uncertainty (hedging and within-party dispersion), information sources, comparing the debates, and the climate/energy-focus robustness check. All numbers are inline R. An HTML comment at the top of the section notes that the results use the LLM codes as coded (review lists not applied; no LLM–human agreement yet).
+- **`scripts/analysis.R` results block** (base R, no new packages): `fig-positions` (`plot_positions()`: mean position by concept, three debate panels, point size = salience, cells with < 5 speeches omitted); `tbl-dispersion` (SD of speech-level positions, blank where a party has < 10 speeches on the concept); `tbl-sources` (share of speeches citing each source type, readable labels); `tbl-salience` (share of speeches addressing each concept); inline helpers `sal()`, `agr()`, `pos()`, `dsp()`, `hed()`, `bn()`, `ssal()`, `sdis()`, `scons()` (concept/type, debate key CT/IRA/OBBB, party) and summary objects (`opposite`, `party_cor`, `tier_share`, `sci_talk`, `hedged_sci`, `hedged_group`, `pct_focus`, `cor_focus_*`).
+- **Main results (LLM codes, unvalidated):** parties on opposite sides on 14 of 23 concepts with ≥ 10 speeches per party (cap-and-trade), 6 of 8 (IRA), 3 of 4 (OBBB); Republican agreement with PC1 24% in cap-and-trade, none of 4 speeches in the IRA debate; PC4 the most salient Republican policy core concept in every debate; both parties agree with DC2 and DC4. 1.6% of statements hedged (Republican PC1–PC3 statements 9.2%, Democratic 2.2%). 75% of speeches cite a source; dissenting science in 12% of Republican cap-and-trade speeches, almost none later; 8% of sources disputed. Republican speeches addressing PC1–PC3: 27% → 6% → 0%. Party salience correlations 0.41 / 0.32 / 0.38. Focus-only correlations with the full sample: salience 0.97, positions 0.99, sources 0.91.
+- Interpretive sentences to check after review and validation: the DC4 "defenses of the bill" reading, shared deep core values applied to opposite conclusions, and the parties emphasizing different beliefs; several cells rest on small n (e.g., 4 Republican PC1 speeches in the IRA debate; OBBB 109 speeches).
+- Rendered HTML, PDF, and DOCX cleanly.
+- **Next steps:** as in Session 4 (review lists, "Mr. GRAVES" fix, human coding and agreement, stability subset); then re-render and recheck the Results wording.
+
 ### Session 4 — 2026-11-13 to 2026-11-15 (Decisions before full coding; `consensus` field; full coding run; analysis matrices)
 
 - Reviewed the pilot and the project materials for what full coding still needed. Decisions (user): code only the inserted material that survives in the speech files; add a `consensus` field for `science` sources; keep SC13; code only the three debate windows; do not wait for the human codes.
