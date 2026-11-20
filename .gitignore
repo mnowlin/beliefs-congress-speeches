@@ -17,3 +17,7 @@ american-political-science-association.csl
 .DS_Store
 
 **/*.quarto_ipynb
+
+# LaTeX intermediates
+*.aux
+*.log
